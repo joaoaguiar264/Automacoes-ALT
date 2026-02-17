@@ -6,8 +6,8 @@
 // @author       
 // @match        https://integrator6.gegnet.com.br/*
 // @match        https://integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalho-autoisp.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalho-autoisp.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/atalho-autoisp.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/atalho-autoisp.js
 // @icon         none
 // @grant        none
 // ==/UserScript==
