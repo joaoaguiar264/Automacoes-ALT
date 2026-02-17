@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      2.9
 // @description  Ao entrar na ONT, gera relatório após 5s pegando cada informação da ONT sem alterar a página
-// @author       Luiz Toledo
+// @author       
 // @match        https://*/index.asp
 // @grant        GM_setClipboard
 // @run-at       document-idle
