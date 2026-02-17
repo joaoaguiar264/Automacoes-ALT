@@ -9,8 +9,8 @@
 // @grant        GM_setClipboard
 // @run-at       document-idle
 // @icon         none
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-conversa-szchat.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-conversa-szchat.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/copiar-conversa-szchat.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/copiar-conversa-szchat.js
 // ==/UserScript==
 
 (function() {
