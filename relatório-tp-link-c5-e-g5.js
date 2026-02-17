@@ -3,9 +3,9 @@
 // @namespace    http://tampermonkey.net/
 // @version      4.0
 // @description  Coleta modelo, dispositivos, DNS, largura de canal, UPnP e uptime do Archer/EX automaticamente.
-// @author       Luiz Toledo
+// @author       
 // @match        *://*/*
-// @updateURL    https://raw.githubusercontent.com/devluiztoledo/copiar-dados-c5/main/relatório-tp-link-c5-e-g5.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/relatório-tp-link-c5-e-g5.js
 // @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/relatório-tp-link-c5-e-g5.js
 // @icon         none
 // @grant        GM_setClipboard
