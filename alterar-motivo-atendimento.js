@@ -3,13 +3,13 @@
 // @namespace    http://tampermonkey.net/
 // @version      6.1
 // @description  Adiciona botões para alterar automaticamente o motivo de atendimento no Integrator 6
-// @author       Luiz Toledo
+// @author       
 // @match        *://integrator6.gegnet.com.br/*
 // @match        *://integrator6.alt.com.br/*
 // @grant        none
 // @icon         none
 // @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/alterar-motivo-atendimento.js
-// @downloadURL  https://raw.githubusercontent.com/devluiztoledo/mudar-motivo/main/alterar-motivo-atendimento.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/alterar-motivo-atendimento.js
 // ==/UserScript==
 
 (function () {
