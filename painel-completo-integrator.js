@@ -5,8 +5,8 @@
 // @description  Painel de Status + Macros (Só aparece dentro do Atendimento)
 // @author       
 // @match        *://integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-completo-integrator.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-completo-integrator.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/painel-completo-integrator.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/painel-completo-integrator.js
 // @icon         none
 // @grant        none
 // ==/UserScript==
@@ -244,4 +244,5 @@
     }
 
 })();
+
 
