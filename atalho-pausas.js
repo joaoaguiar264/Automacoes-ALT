@@ -6,8 +6,8 @@
 // @author       
 // @match        http://qm.coger.net.br:8080/queuemetrics/*
 // @grant        GM_notification
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalho-pausas.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalho-pausas.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/atalho-pausas.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/atalho-pausas.js
 // @icon         none
 // ==/UserScript==
 
