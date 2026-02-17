@@ -8,8 +8,8 @@
 // @match        *://integrator6.alt.com.br/*
 // @grant        GM_setClipboard
 // @icon         none
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-atendimentos.js
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-atendimentos.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/copiar-atendimentos.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/copiar-atendimentos.js
 // ==/UserScript==
 
 (function () {
