@@ -8,8 +8,8 @@
 // @match        *://integrator6.alt.com.br/*
 // @grant        none
 // @icon         none
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/alterar-motivo-atendimento.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/alterar-motivo-atendimento.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/alterar-motivo-atendimento.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/alterar-motivo-atendimento.js
 // ==/UserScript==
 
 (function () {
