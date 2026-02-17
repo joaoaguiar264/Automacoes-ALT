@@ -7,8 +7,8 @@
 // @match        https://integrator6.gegnet.com.br/*
 // @grant        GM_notification
 // @run-at       document-idle
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/notificar-novo-atendimento.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/notificar-novo-atendimento.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/notificar-novo-atendimento.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/notificar-novo-atendimento.js
 // @icon         none
 // ==/UserScript==
 
