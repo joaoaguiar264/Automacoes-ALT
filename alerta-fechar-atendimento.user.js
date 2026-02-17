@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         alerta-fechar-atendimento
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.3
 // @description  Alerta ao fechar atendimento com motivo "Dúvidas/Informações" no INT6.
 // @author       Joao Aguiar
 // @match        *://integrator6.gegnet.com.br/*
