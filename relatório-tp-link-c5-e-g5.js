@@ -5,8 +5,8 @@
 // @description  Coleta modelo, dispositivos, DNS, largura de canal, UPnP e uptime do Archer/EX automaticamente.
 // @author       
 // @match        *://*/*
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/relatório-tp-link-c5-e-g5.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/relatório-tp-link-c5-e-g5.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/relatório-tp-link-c5-e-g5.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/relatório-tp-link-c5-e-g5.js
 // @icon         none
 // @grant        GM_setClipboard
 // @run-at       document-idle
