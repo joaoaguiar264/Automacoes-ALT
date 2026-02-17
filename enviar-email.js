@@ -3,13 +3,13 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Botão “Enviar E-mail” no menu de atendimento: abre o modal, seleciona modelo, marca leitura obrigatória e só clica em “Finalizar” depois que o botão estiver ativo.
-// @author       Luiz Toledo
+// @author       
 // @match        *://integrator6.gegnet.com.br/*
 // @match        *://integrator6.alt.com.br/*
 // @grant        none
 // @icon         none
 // @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/enviar-email.js
-// @downloadURL  https://raw.githubusercontent.com/devluiztoledo/enviar-email/main/enviar-email.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/enviar-email.js
 // ==/UserScript==
 
 (function() {
