@@ -8,8 +8,8 @@
 // @grant        GM_setClipboard
 // @run-at       document-idle
 // @icon         none
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/relatorio-ont-huawei.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/relatorio-ont-huawei.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/relatorio-ont-huawei.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/relatorio-ont-huawei.js
 
 // ==/UserScript==
 
