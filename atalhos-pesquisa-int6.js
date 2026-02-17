@@ -6,8 +6,8 @@
 // @match        https://integrator6.gegnet.com.br/*
 // @match        https://integrator6.alt.com.br/*
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalhos-pesquisa-int6.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalhos-pesquisa-int6.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/atalhos-pesquisa-int6.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/atalhos-pesquisa-int6.js
 // @icon         none
 
 // ==/UserScript==
