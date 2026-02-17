@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.6
 // @description  Cria um botão que extrai Protocolo, Nome e Telefone e copia formatado para o clipboard
-// @author       Luiz Toledo
+// @author       
 // @match        *://*.ggnet.sz.chat/*
 // @match        *://clusterscpr.sz.chat/*
 // @grant        GM_setClipboard
