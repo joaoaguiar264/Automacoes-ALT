@@ -5,8 +5,8 @@
 // @description  Barra arrastável, Cidades Exatas e Correção de Seleção
 // @author       
 // @match        https://integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-regionais.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-regionais.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/painel-regionais.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/painel-regionais.js
 // @icon         none
 // @grant        none
 // ==/UserScript==
