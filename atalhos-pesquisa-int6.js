@@ -2,7 +2,7 @@
 // @name         atalhos-pesquisa-int6
 // @version      1.3
 // @description  Adiciona botões de atalho para seleção rápida de Nome | Código | CPF | CNPJ na pesquisa de clientes
-// @author       Luiz Toledo
+// @author       
 // @match        https://integrator6.gegnet.com.br/*
 // @match        https://integrator6.alt.com.br/*
 // @grant        none
