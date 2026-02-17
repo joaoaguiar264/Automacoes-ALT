@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.2
 // @description  Copia quantidade + lista detalhada de atendimentos concluídos de Suporte Técnico nos últimos 3 meses com data, hora, protocolo e tipo de atendimento para relatórios e clipboard do cliente.
-// @author       Luiz Toledo
+// @author       
 // @match        *://integrator6.gegnet.com.br/*
 // @match        *://integrator6.alt.com.br/*
 // @grant        GM_setClipboard
