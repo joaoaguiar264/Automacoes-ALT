@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         alerta-fechar-atendimento
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.3
 // @description  Alerta ao fechar atendimento com motivo "Dúvidas/Informações" no INT6.
 // @author       Joao Aguiar
 // @match        *://integrator6.gegnet.com.br/*
@@ -16,7 +16,7 @@
     'use strict';
 
     let ultimoMotivoDescricao = null;
-    print("carambolas");
+    
     setInterval(() => {
         const campo = document.querySelector('input[formcontrolname="descri_mvis"]');
         if (campo && campo.value) {
