@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.5
 // @description  Adiciona botão para copiar toda a conversa em texto no SZ.CHAT webagent UI.
-// @author       Luiz Toledo
+// @author       
 // @match        https://ggnet.sz.chat/user/agent*
 // @match        *://clusterscpr.sz.chat/*
 // @grant        GM_setClipboard
