@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      10.0
 // @description  Painel de Status + Macros (Só aparece dentro do Atendimento)
-// @author       Lucas Q.
+// @author       
 // @match        *://integrator6.alt.com.br/*
 // @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-completo-integrator.js
 // @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-completo-integrator.js
@@ -244,3 +244,4 @@
     }
 
 })();
+
