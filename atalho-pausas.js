@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      2.0
 // @description  Insere botões de pausa com timer e notificações periódicas via GM_notification.
-// @author       Luiz Toledo
+// @author       
 // @match        http://qm.coger.net.br:8080/queuemetrics/*
 // @grant        GM_notification
 // @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalho-pausas.js
