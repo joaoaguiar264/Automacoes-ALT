@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         A1 Alerta - Fechar Atendimento - Luiz Toledo
+// @name         A1 Alerta - Fechar Atendimento
 // @namespace    http://tampermonkey.net/
 // @version      1.3
 // @description  Alerta ao fechar atendimento com motivo "Dúvidas/Informações" no INT6.
 // @author       Luiz Toledo
 // @match        *://integrator6.gegnet.com.br/*
 // @match        *//integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/devluiztoledo/alerta-fechar-atendimento/main/alerta-fechar-atendimento.user.js
-// @downloadURL  https://raw.githubusercontent.com/devluiztoledo/alerta-fechar-atendimento/main/alerta-fechar-atendimento.user.js
-// @icon         https://raw.githubusercontent.com/devluiztoledo/copiar-dados-onu-autoisp/main/icon.png
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/A1 Alerta - Fechar Atendimento.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/A1 Alerta - Fechar Atendimento.js
+// @icon         none
 // @grant        none
 // ==/UserScript==
 
