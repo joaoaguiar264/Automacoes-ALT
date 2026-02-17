@@ -6,8 +6,8 @@
 // @author
 // @match        *://integrator6.gegnet.com.br/*
 // @match        *//integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/alerta-fechar-atendimento.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/alerta-fechar-atendimento.js
+// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/alerta-fechar-atendimento.user.js
+// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/refs/heads/main/alerta-fechar-atendimento.user.js
 // @icon         none
 // @grant        none
 // ==/UserScript==
