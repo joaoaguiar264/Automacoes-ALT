@@ -16,7 +16,7 @@
     'use strict';
 
     let ultimoMotivoDescricao = null;
-
+    print("carambolas");
     setInterval(() => {
         const campo = document.querySelector('input[formcontrolname="descri_mvis"]');
         if (campo && campo.value) {
