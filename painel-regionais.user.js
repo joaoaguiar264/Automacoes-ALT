@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         painel-regionais
+// @name         Integrator - painel-regionais
 // @namespace    http://tampermonkey.net/
-// @version      3.6
+// @version      1.0
 // @description  Barra arrastável, Cidades Exatas e Correção de Seleção
 // @author       Gemini
 // @match        https://integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-regionais.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-regionais.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-regionais.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-regionais.user.js
 // @icon         none
 // @grant        none
 // ==/UserScript==
