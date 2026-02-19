@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         alerta-fechar-atendimento
+// @name         Integrator - alerta-fechar-atendimento
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Alerta ao fechar atendimento com motivo "Dúvidas/Informações" no INT6.
