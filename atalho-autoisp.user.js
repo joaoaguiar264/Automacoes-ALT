@@ -1,14 +1,91 @@
 // ==UserScript==
-// @name         Atalho para o AutoISP
+// @name         A94 Atalho AutoISP – GGNET E ALT
 // @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  Adiciona um botão de atalho no topo da lista com URL do AutoISP
-// @author       Matheus Eger
+// @version      1.4
+// @description  Insere um botão “AutoISP” acima do Dashboard, com o mesmo estilo nativo do menu lateral do Integrator 6 (GGNET e ALT)
+// @author       Luiz Toledo
 // @match        https://integrator6.gegnet.com.br/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=gegnet.com.br
-// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-autoisp.user.js
-// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-autoisp.user.js
-// @grant        GM_setClipboard
+// @match        https://integrator6.alt.com.br/*
+// @updateURL    https://raw.githubusercontent.com/devluiztoledo/atalho-autoisp/main/atalho-autoisp.user.js
+// @downloadURL  https://raw.githubusercontent.com/devluiztoledo/atalho-autoisp/main/atalho-autoisp.user.js
+// @icon         https://raw.githubusercontent.com/devluiztoledo/copiar-dados-c5/main/icon.png
+// @grant        none
 // ==/UserScript==
 
-(function(_0x4760fa,_0x5a5a47){const _0x15e97c=_0x3129,_0x56d5a7=_0x4760fa();while(!![]){try{const _0x1f6ab7=-parseInt(_0x15e97c(0x75))/0x1*(parseInt(_0x15e97c(0x88))/0x2)+parseInt(_0x15e97c(0x7a))/0x3*(parseInt(_0x15e97c(0x8a))/0x4)+parseInt(_0x15e97c(0x78))/0x5*(-parseInt(_0x15e97c(0x76))/0x6)+parseInt(_0x15e97c(0x7c))/0x7*(parseInt(_0x15e97c(0x79))/0x8)+parseInt(_0x15e97c(0x77))/0x9+parseInt(_0x15e97c(0x84))/0xa*(-parseInt(_0x15e97c(0x81))/0xb)+parseInt(_0x15e97c(0x9c))/0xc*(parseInt(_0x15e97c(0x89))/0xd);if(_0x1f6ab7===_0x5a5a47)break;else _0x56d5a7['push'](_0x56d5a7['shift']());}catch(_0x917313){_0x56d5a7['push'](_0x56d5a7['shift']());}}}(_0x1741,0x49b4d),(function(){'use strict';const _0x38194a=_0x3129;function _0x271f9a(_0x4e3881){const _0x2567ee=_0x3129,_0x19fe69=document['createElement']('li');_0x19fe69[_0x2567ee(0x93)](_0x2567ee(0x90),''),_0x19fe69[_0x2567ee(0x93)](_0x2567ee(0x97),_0x2567ee(0x8d)),_0x19fe69['setAttribute'](_0x2567ee(0x83),'right'),_0x19fe69[_0x2567ee(0x93)](_0x2567ee(0x99),_0x2567ee(0x7d)),_0x19fe69[_0x2567ee(0x93)](_0x2567ee(0x86),_0x2567ee(0x98)),_0x19fe69['setAttribute']('id','autoisp-link'),_0x19fe69[_0x2567ee(0x93)](_0x2567ee(0x7e),'deactivated\x20ng-star-inserted'),_0x19fe69[_0x2567ee(0x93)]('title',_0x2567ee(0x8c));const _0x518f1f=document['createElement']('a');_0x518f1f[_0x2567ee(0x93)](_0x2567ee(0x90),''),_0x518f1f[_0x2567ee(0x93)]('class',_0x2567ee(0x9a)),_0x518f1f[_0x2567ee(0x93)]('href',_0x4e3881),_0x518f1f[_0x2567ee(0x93)](_0x2567ee(0x7b),'_blank');const _0x2d21ff=document['createElement'](_0x2567ee(0x85));_0x2d21ff[_0x2567ee(0x93)](_0x2567ee(0x90),''),_0x2d21ff[_0x2567ee(0x93)](_0x2567ee(0x7e),'link\x20ng-star-inserted');const _0x45b4ee=document[_0x2567ee(0x9d)]('span');_0x45b4ee[_0x2567ee(0x93)](_0x2567ee(0x90),''),_0x45b4ee[_0x2567ee(0x93)](_0x2567ee(0x7e),_0x2567ee(0x82));const _0x418214=document['createTextNode'](_0x2567ee(0x8b));return _0x2d21ff[_0x2567ee(0x8f)](_0x45b4ee),_0x2d21ff[_0x2567ee(0x8f)](_0x418214),_0x518f1f[_0x2567ee(0x8f)](_0x2d21ff),_0x19fe69['appendChild'](_0x518f1f),_0x19fe69;}function _0x37c786(){const _0x86fd74=_0x3129,_0x3746b5=document[_0x86fd74(0x7f)]('ul.nav.nav-tabs.tab-left'),_0x17934e=document[_0x86fd74(0x80)](_0x86fd74(0x95));if(_0x3746b5&&!_0x17934e){const _0x4b4608=/\/cliente\/(\d+)/,_0x36ad98=window[_0x86fd74(0x87)][_0x86fd74(0x92)][_0x86fd74(0x74)](_0x4b4608);if(_0x36ad98&&_0x36ad98[0x1]){const _0x31c1a7=_0x36ad98[0x1],_0x123a56=_0x86fd74(0x96)+_0x31c1a7,_0x5c7e40=_0x271f9a(_0x123a56),_0x20c23a=_0x3746b5[_0x86fd74(0x94)];_0x3746b5[_0x86fd74(0x8e)](_0x5c7e40,_0x20c23a);}}}function _0x8548ea(){const _0x52976d=_0x3129,_0x4b3bed=document[_0x52976d(0x8d)],_0x5a78c7={'childList':!![],'subtree':!![]},_0x3db548=new MutationObserver(()=>{_0x37c786();});_0x3db548[_0x52976d(0x9b)](_0x4b3bed,_0x5a78c7);}window[_0x38194a(0x91)]('load',function(){_0x37c786(),_0x8548ea();});}()));function _0x3129(_0x2e38ec,_0xdae929){const _0x1741ad=_0x1741();return _0x3129=function(_0x312950,_0x2f9c6b){_0x312950=_0x312950-0x74;let _0x14ce62=_0x1741ad[_0x312950];return _0x14ce62;},_0x3129(_0x2e38ec,_0xdae929);}function _0x1741(){const _0x14a0de=['insertBefore','appendChild','_ngcontent-c14','addEventListener','href','setAttribute','firstChild','autoisp-link','https://autoisp.gegnet.com.br/subscribers/','data-container','presentation','data-toggle','dropdown','observe','13963776tKCVip','createElement','match','1106kfPhvF','564aFztGc','797076IltWFW','8425AQMQoI','440yvjxbE','92439zZtXAB','target','11179IvVoif','tooltip','class','querySelector','getElementById','5973LuAmtD','fa\x20fa-external-link','data-placement','9070npTuTx','div','role','location','756WseKbj','13CVQAlB','4TQSGRn','\x20AutoISP','Acessar\x20AutoISP','body'];_0x1741=function(){return _0x14a0de;};return _0x1741();}
+(function() {
+    'use strict';
+
+    const BTN_ID = 'autoisp-menu-item';
+
+    function criarMenuItemAutoISP(url) {
+        const li = document.createElement('li');
+        li.id = BTN_ID;
+        li.className = 'deactivated ng-star-inserted';
+        li.setAttribute('role', 'presentation');
+        li.setAttribute('data-container', 'body');
+        li.setAttribute('data-toggle', 'tooltip');
+        li.setAttribute('data-placement', 'right');
+        li.setAttribute('title', 'Acessar AutoISP');
+
+        const a = document.createElement('a');
+        a.className = 'dropdown';
+        a.href = url;
+        a.target = '_blank';
+
+        const div = document.createElement('div');
+        div.className = 'link ng-star-inserted';
+
+        const span = document.createElement('span');
+        span.className = 'fa fa-external-link';
+
+        const texto = document.createTextNode(' AutoISP');
+
+        div.appendChild(span);
+        div.appendChild(texto);
+        a.appendChild(div);
+        li.appendChild(a);
+
+        return li;
+    }
+
+    function inserirAcimaDashboard() {
+
+        if (document.getElementById(BTN_ID)) return;
+
+
+        let dashboardLi = document.getElementById('dashboard-cliente');
+        if (!dashboardLi) {
+            const divs = Array.from(document.querySelectorAll('div.link.ng-star-inserted'));
+            const dashDiv = divs.find(d => d.textContent.trim().startsWith('Dashboard'));
+            dashboardLi = dashDiv ? dashDiv.closest('li') : null;
+        }
+        if (!dashboardLi) return;
+
+
+        const hash = window.location.hash;
+        const match = hash.match(/\/cliente\/(\d+)/);
+        if (!match) return;
+        const clienteId = match[1];
+
+
+        const host = window.location.host;
+        const domain = host.includes('alt')
+            ? 'https://autoisp.gegnet.com.br'
+            : 'https://autoisp.gegnet.com.br';
+
+        const url = `${domain}/subscribers/${clienteId}`;
+
+
+        const novoItem = criarMenuItemAutoISP(url);
+        dashboardLi.parentNode.insertBefore(novoItem, dashboardLi);
+    }
+
+
+    const observer = new MutationObserver(inserirAcimaDashboard);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+
+    window.addEventListener('load', inserirAcimaDashboard);
+    window.addEventListener('hashchange', inserirAcimaDashboard);
+    setInterval(inserirAcimaDashboard, 1000);
+})();
