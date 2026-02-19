@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         copiar-conversa-szchat
+// @name         SZ.Chat - copiar-conversa-szchat
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.0
 // @description  Adiciona botão para copiar toda a conversa em texto no SZ.CHAT webagent UI.
 // @author       Luiz Toledo
 // @match        https://ggnet.sz.chat/user/agent*
@@ -9,8 +9,8 @@
 // @grant        GM_setClipboard
 // @run-at       document-idle
 // @icon         none
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-conversa-szchat.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-conversa-szchat.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-conversa-szchat.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-conversa-szchat.user.js
 // ==/UserScript==
 
 (function() {
