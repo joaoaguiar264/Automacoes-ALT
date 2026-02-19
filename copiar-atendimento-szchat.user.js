@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SZ.Chat - copiar-atendimento-szchat
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.0
 // @description  Cria um botão que extrai Protocolo, Nome e Telefone e copia formatado para o clipboard
 // @author       Luiz Toledo
 // @match        *://*.ggnet.sz.chat/*
