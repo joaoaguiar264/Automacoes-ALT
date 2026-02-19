@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         copiar-atendimentos
+// @name         Integrator - copiar-atendimentos
 // @namespace    http://tampermonkey.net/
 // @version      1.2
 // @description  Copia quantidade + lista detalhada de atendimentos concluídos de Suporte Técnico nos últimos 3 meses com data, hora, protocolo e tipo de atendimento para relatórios e clipboard do cliente.
@@ -8,8 +8,8 @@
 // @match        *://integrator6.alt.com.br/*
 // @grant        GM_setClipboard
 // @icon         none
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-atendimentos.js
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-atendimentos.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimentos.user.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimentos.user.js
 // ==/UserScript==
 
 (function () {
