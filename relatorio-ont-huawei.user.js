@@ -3,11 +3,11 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Ao entrar na ONT, gera relatório após 5s pegando cada informação da ONT sem alterar a página
-// @author       none
+// @author       ALT
 // @match        https://*/index.asp
 // @grant        GM_setClipboard
 // @run-at       document-idle
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/relatorio-ont-huawei.user.js
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/relatorio-ont-huawei.user.js
 
