@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         atalho-autoisp
+// @name         Integrator - atalho-autoisp
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Insere um botão “AutoISP” acima do Dashboard, com o mesmo estilo nativo do menu lateral do Integrator 6 (GGNET e ALT)
