@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         notificar-novo-atendimento
+// @name         Integrator - notificar-novo-atendimento
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      1.0
 // @description  Monitora contador no Main e Atendimentos, notifica em aumentos. Atualiza atendimentos a cada 10s simulando botão.
-// @author       Luiz Toledo
+// @author       none
 // @match        https://integrator6.gegnet.com.br/*
 // @grant        GM_notification
 // @run-at       document-idle
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/notificar-novo-atendimento.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/notificar-novo-atendimento.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/notificar-novo-atendimento.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/notificar-novo-atendimento.user.js
 // @icon         none
 // ==/UserScript==
 
