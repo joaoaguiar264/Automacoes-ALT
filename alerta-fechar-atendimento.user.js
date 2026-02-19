@@ -8,7 +8,7 @@
 // @match        *//integrator6.alt.com.br/*
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/alerta-fechar-atendimento.user.js
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/alerta-fechar-atendimento.user.js
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.jpeg
 // @grant        none
 // ==/UserScript==
 
