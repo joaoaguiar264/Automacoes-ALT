@@ -8,7 +8,7 @@
 // @match        *://clusterscpr.sz.chat/*
 // @grant        GM_setClipboard
 // @run-at       document-idle
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimento-szchat.user.js
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimento-szchat.user.js
 // ==/UserScript==
