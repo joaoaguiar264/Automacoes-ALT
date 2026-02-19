@@ -3,11 +3,11 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Barra arrastável, Cidades Exatas e Correção de Seleção
-// @author       Gemini
+// @author       ALT
 // @match        https://integrator6.alt.com.br/*
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-regionais.user.js
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-regionais.user.js
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @grant        none
 // ==/UserScript==
 
