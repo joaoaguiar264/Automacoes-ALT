@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Integrator - copiar-atendimentos
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.0
 // @description  Copia quantidade + lista detalhada de atendimentos concluídos de Suporte Técnico nos últimos 3 meses com data, hora, protocolo e tipo de atendimento para relatórios e clipboard do cliente.
 // @author       Luiz Toledo
 // @match        *://integrator6.gegnet.com.br/*
