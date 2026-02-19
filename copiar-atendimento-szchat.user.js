@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         copiar-atendimento-szchat
+// @name         SZ.Chat - copiar-atendimento-szchat
 // @namespace    http://tampermonkey.net/
 // @version      1.6
 // @description  Cria um botão que extrai Protocolo, Nome e Telefone e copia formatado para o clipboard
@@ -9,8 +9,8 @@
 // @grant        GM_setClipboard
 // @run-at       document-idle
 // @icon         none
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-atendimento-szchat.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/copiar-atendimento-szchat.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimento-szchat.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimento-szchat.user.js
 // ==/UserScript==
 
 
