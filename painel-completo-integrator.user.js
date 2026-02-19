@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         painel-completo-integrator
+// @name         Integrator - painel-completo-integrator
 // @namespace    http://tampermonkey.net/
-// @version      10.0
+// @version      1.0
 // @description  Painel de Status + Macros (Só aparece dentro do Atendimento)
-// @author       Lucas Q.
+// @author       none
 // @match        *://integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-completo-integrator.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/painel-completo-integrator.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-completo-integrator.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-completo-integrator.user.js
 // @icon         none
 // @grant        none
 // ==/UserScript==
@@ -244,3 +244,4 @@
     }
 
 })();
+
