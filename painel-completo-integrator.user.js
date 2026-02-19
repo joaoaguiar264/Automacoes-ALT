@@ -3,11 +3,11 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Painel de Status + Macros (Só aparece dentro do Atendimento)
-// @author       none
+// @author       ALT
 // @match        *://integrator6.alt.com.br/*
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-completo-integrator.user.js
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/painel-completo-integrator.user.js
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @grant        none
 // ==/UserScript==
 
@@ -244,4 +244,5 @@
     }
 
 })();
+
 
