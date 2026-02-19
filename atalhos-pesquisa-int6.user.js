@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         atalhos-pesquisa-int6
-// @version      1.3
+// @name         Integrator - atalhos-pesquisa-int6
+// @version      1.0
 // @description  Adiciona botões de atalho para seleção rápida de Nome | Código | CPF | CNPJ na pesquisa de clientes
 // @author       Luiz Toledo
 // @match        https://integrator6.gegnet.com.br/*
 // @match        https://integrator6.alt.com.br/*
 // @grant        none
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalhos-pesquisa-int6.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalhos-pesquisa-int6.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalhos-pesquisa-int6.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalhos-pesquisa-int6.user.js
 // @icon         none
 
 // ==/UserScript==
