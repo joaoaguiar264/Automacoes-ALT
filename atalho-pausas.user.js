@@ -8,7 +8,7 @@
 // @grant        GM_notification
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-pausas.user.js
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-pausas.user.js
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // ==/UserScript==
 
 (function(){
