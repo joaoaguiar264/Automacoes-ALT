@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         relatório-tp-link-c5-e-g5
+// @name         Roteadores - relatório-tp-link-c5-e-g5
 // @namespace    http://tampermonkey.net/
-// @version      4.0
+// @version      1.0
 // @description  Coleta modelo, dispositivos, DNS, largura de canal, UPnP e uptime do Archer/EX automaticamente.
-// @author       Luiz Toledo
+// @author       none
 // @match        *://*/*
-// @updateURL    https://raw.githubusercontent.com/devluiztoledo/copiar-dados-c5/main/relatório-tp-link-c5-e-g5.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/relatório-tp-link-c5-e-g5.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/relat%C3%B3rio-tp-link-c5-e-g5.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/relat%C3%B3rio-tp-link-c5-e-g5.user.js
 // @icon         none
 // @grant        GM_setClipboard
 // @run-at       document-idle
