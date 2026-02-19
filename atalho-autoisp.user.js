@@ -6,9 +6,9 @@
 // @author       ALT
 // @match        https://integrator6.gegnet.com.br/*
 // @match        https://integrator6.alt.com.br/*
-// @updateURL    https://raw.githubusercontent.com/devluiztoledo/atalho-autoisp/main/atalho-autoisp.user.js
-// @downloadURL  https://raw.githubusercontent.com/devluiztoledo/atalho-autoisp/main/atalho-autoisp.user.js
-// @icon         https://raw.githubusercontent.com/devluiztoledo/copiar-dados-c5/main/icon.png
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-autoisp.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-autoisp.user.js
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @grant        none
 // ==/UserScript==
 
