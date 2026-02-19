@@ -3,11 +3,11 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Copia quantidade + lista detalhada de atendimentos concluídos de Suporte Técnico nos últimos 3 meses com data, hora, protocolo e tipo de atendimento para relatórios e clipboard do cliente.
-// @author       Luiz Toledo
+// @author       ALT
 // @match        *://integrator6.gegnet.com.br/*
 // @match        *://integrator6.alt.com.br/*
 // @grant        GM_setClipboard
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimentos.user.js
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/copiar-atendimentos.user.js
 // ==/UserScript==
