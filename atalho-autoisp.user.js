@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         A94 Atalho AutoISP – GGNET E ALT
+// @name         Integrator - atalho-autoisp
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.0
 // @description  Insere um botão “AutoISP” acima do Dashboard, com o mesmo estilo nativo do menu lateral do Integrator 6 (GGNET e ALT)
-// @author       Luiz Toledo
+// @author       ALT
 // @match        https://integrator6.gegnet.com.br/*
 // @match        https://integrator6.alt.com.br/*
 // @updateURL    https://raw.githubusercontent.com/devluiztoledo/atalho-autoisp/main/atalho-autoisp.user.js
