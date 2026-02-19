@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         atalho-pausas
+// @name         MyISP - atalho-pausas
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      1.0
 // @description  Insere botões de pausa com timer e notificações periódicas via GM_notification.
 // @author       Luiz Toledo
 // @match        http://qm.coger.net.br:8080/queuemetrics/*
 // @grant        GM_notification
-// @updateURL    https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalho-pausas.js
-// @downloadURL  https://raw.githubusercontent.com/joaoaguiar264/Automacoes-ALT/main/atalho-pausas.js
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-pausas.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/atalho-pausas.user.js
 // @icon         none
 // ==/UserScript==
 
