@@ -3,13 +3,13 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Monitora contador no Main e Atendimentos, notifica em aumentos. Atualiza atendimentos a cada 10s simulando botão.
-// @author       none
+// @author       ALT
 // @match        https://integrator6.gegnet.com.br/*
 // @grant        GM_notification
 // @run-at       document-idle
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/notificar-novo-atendimento.user.js
 // @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/notificar-novo-atendimento.user.js
-// @icon         none
+// @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // ==/UserScript==
 
 (function() {
