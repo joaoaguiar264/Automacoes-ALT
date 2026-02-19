@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         alterar-motivo-atendimento
+// @name         Integrator - alterar-motivo-atendimento
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Adiciona botões para alterar automaticamente o motivo de atendimento no Integrator 6
