@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Integrator - painel-completo-integrator
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Painel de Status + Macros (Só aparece dentro do Atendimento)
 // @author       ALT
 // @match        *://integrator6.alt.com.br/*
@@ -115,6 +115,27 @@
     function criarTitulo(t) { const s=document.createElement('span'); s.className='titulo-painel'; s.innerText=t; return s; }
     function criarBotaoBase(c) { const b=document.createElement('button'); b.innerText=c.label; b.className='btn-status-rapido'; b.style.backgroundColor=c.cor; b.style.color=c.texto; return b; }
 
+
+    async function mudarCategoriaTecnico() {
+        const btnMudar = encontrarElementoPorTexto('span, button, a', 'Mudar');
+        if (!btnMudar) throw new Error("Botão Mudar não encontrado");
+
+        btnMudar.click();
+        await esperar(200);
+
+        const btnCategoria = encontrarElementoPorTexto('span, a', 'Categoria');
+        if (!btnCategoria) throw new Error("Menu Categoria não encontrado");
+
+        btnCategoria.parentElement.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
+        await esperar(200);
+
+        const itemTecnico = encontrarElementoPorTexto('span.ui-menuitem-text', 'Técnico');
+        if (!itemTecnico) throw new Error("Categoria Técnico não encontrada");
+
+        itemTecnico.click();
+        await esperar(400);
+    }
+
     // --- Macro de Comentário ---
     async function executingMacro(botao, config) {
         const txtOrig = botao.innerText;
@@ -124,6 +145,8 @@
         botao.classList.add('processando');
 
         try {
+            await mudarCategoriaTecnico();
+
             const btnAdd = encontrarElementoPorTexto('span, button', 'Adicionar');
             if(!btnAdd) throw new Error("Botão Adicionar sumiu");
             btnAdd.click();
