@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Integrator - painel-completo-integrator
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Painel de Status + Macros (Só aparece dentro do Atendimento)
 // @author       ALT
 // @match        *://integrator6.alt.com.br/*
@@ -26,11 +26,19 @@
     const BOTOES_ACAO = [
         {
             tipo: "COMENTARIO",
-            label: "➕ Coment: Em tratativa",
+            label: "➕ Coment: Em tratativa CHAT",
             cor: "#2c3e50",
             texto: "#ffffff",
             tipoDropdown: "Comentário Padrão",
             mensagem: "Em atendimento via chat."
+        },
+        {
+            tipo: "COMENTARIO",
+            label: "➕ Coment: Em tratativa TELEFONE",
+            cor: "#2c3e50",
+            texto: "#ffffff",
+            tipoDropdown: "Comentário Padrão",
+            mensagem: "Em atendimento via ligação."
         }
     ];
 
