@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Integrator - painel-completo-integrator
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Painel de Status + Macros (Só aparece dentro do Atendimento)
 // @author       ALT
 // @match        *://integrator6.alt.com.br/*
@@ -216,6 +216,14 @@
             }
 
             if(clicou) {
+                botao.innerText = "⏳ Atualizando status...";
+
+                // Aguarda um pouco para garantir que o comentário foi processado
+                await esperar(800);
+
+                // Troca o status para "Aguardando Informações"
+                executingStatus("Aguardando Informações", botao);
+
                 botao.innerText = "✅ Feito!";
                 botao.style.backgroundColor = "#27ae60";
             } else {
