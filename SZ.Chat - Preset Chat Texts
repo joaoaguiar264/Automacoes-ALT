@@ -40,7 +40,7 @@
         title.style.fontSize = '14px';
 
         const toggleBtn = document.createElement('span');
-        toggleBtn.textContent = '+';
+        toggleBtn.textContent = '↑';
         toggleBtn.style.cursor = 'pointer';
         toggleBtn.style.padding = '2px 6px';
         toggleBtn.style.borderRadius = '4px';
@@ -119,21 +119,16 @@
         box.appendChild(content);
         document.body.appendChild(box);
 
-        // Toggle
-        let collapsed = true;
+        // Show on hover
+        box.addEventListener('mouseenter', () => {
+            content.style.display = 'block';
+            toggleBtn.textContent = '↓';
+        });
 
-        toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-
-            collapsed = !collapsed;
-
-            if (collapsed) {
-                content.style.display = 'none';
-                toggleBtn.textContent = '+';
-            } else {
-                content.style.display = 'block';
-                toggleBtn.textContent = '–';
-            }
+        // Hide when leaving
+        box.addEventListener('mouseleave', () => {
+            content.style.display = 'none';
+            toggleBtn.textContent = '↑';
         });
 
         // Dragging (only header drags)
