@@ -28,6 +28,16 @@
         box.style.zIndex = '9999';
         box.style.fontFamily = 'Arial, sans-serif';
 
+        const savedPosition = localStorage.getItem('szchat_box_position');
+        if (savedPosition) {
+            const { left, top } = JSON.parse(savedPosition);
+
+            box.style.left = left;
+            box.style.top = top;
+            box.style.right = 'auto';
+            box.style.bottom = 'auto';
+        }
+
         // Header
         const header = document.createElement('div');
         header.style.display = 'flex';
@@ -158,6 +168,12 @@
         });
 
         document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                localStorage.setItem('szchat_box_position', JSON.stringify({
+                    left: box.style.left,
+                    top: box.style.top
+                }));
+            }
             isDragging = false;
         });
 
