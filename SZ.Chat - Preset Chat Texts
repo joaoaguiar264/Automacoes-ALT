@@ -69,7 +69,7 @@
         content.style.boxSizing = 'border-box';
 
         const presets = [
-            { title: "Pode testar", text: "Poderia testar a conexão agora, por favor, fiz alguns ajustes na rede." },
+            { title: "Pode testar", text: "Obrigado por aguardar, poderia testar a conexão agora, por favor, fiz alguns ajustes na rede." },
             { title: "Testar na 5G", text: "Vão aparecer duas redes, pode conectar e testar na 5G, por favor, pois nela chega mais velocidade que a normal." },
             { title: "Lentidão - Aparelhos", text: "Está lento em todos os Aparelhos? Celular, tv, computador, etc" },
             { title: "Lentidão - Cômodos", text: "Certo, sobre o local, sente lentidão em todos os cômodos?" },
