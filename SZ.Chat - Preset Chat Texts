@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SZ.Chat - Preset Chat Texts
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.0
 // @description  Draggable UI with preset texts, collapsible upward
 // @match        https://clusterscpr.sz.chat/*
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Preset%20Chat%20Texts
