@@ -1,0 +1,165 @@
+// ==UserScript==
+// @name         SZ.Chat - Preset Chat Texts
+// @namespace    http://tampermonkey.net/
+// @version      1.3
+// @description  Draggable UI with preset texts, collapsible upward
+// @match        https://clusterscpr.sz.chat/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    window.addEventListener('load', () => {
+
+        const box = document.createElement('div');
+        box.style.position = 'fixed';
+        box.style.bottom = '180px';
+        box.style.right = '10px';
+        box.style.width = '240px';
+        box.style.background = '#1e1e1e';
+        box.style.color = '#fff';
+        box.style.padding = '10px';
+        box.style.border = '1px solid #444';
+        box.style.borderRadius = '8px';
+        box.style.zIndex = '9999';
+        box.style.fontFamily = 'Arial, sans-serif';
+
+        // Header
+        const header = document.createElement('div');
+        header.style.display = 'flex';
+        header.style.justifyContent = 'space-between';
+        header.style.alignItems = 'center';
+        header.style.cursor = 'move';
+
+        const title = document.createElement('strong');
+        title.textContent = 'Facilitador de Vidas';
+        title.style.fontSize = '14px';
+
+        const toggleBtn = document.createElement('span');
+        toggleBtn.textContent = '+';
+        toggleBtn.style.cursor = 'pointer';
+        toggleBtn.style.padding = '2px 6px';
+        toggleBtn.style.borderRadius = '4px';
+        toggleBtn.style.background = '#2a2a2a';
+
+        header.appendChild(title);
+        header.appendChild(toggleBtn);
+
+        box.appendChild(header);
+
+        const divider = document.createElement('hr');
+        divider.style.border = '0';
+        divider.style.borderTop = '1px solid #444';
+
+        // Content container (will be positioned above)
+        const content = document.createElement('div');
+        content.style.position = 'absolute';
+        content.style.bottom = '100%'; // THIS makes it expand upward
+        content.style.left = '0';
+        content.style.width = '100%';
+        content.style.background = '#1e1e1e';
+        content.style.border = '1px solid #444';
+        content.style.borderRadius = '8px';
+        content.style.padding = '10px';
+        content.style.display = 'none'; // start collapsed
+        content.style.boxSizing = 'border-box';
+
+        const presets = [
+            { title: "Pode testar", text: "Poderia testar a conexão agora, por favor, fiz alguns ajustes na rede." },
+            { title: "Testar na 5G", text: "Vão aparecer duas redes, pode conectar e testar na 5G, por favor, pois nela chega mais velocidade que a normal." },
+            { title: "Lentidão - Aparelhos", text: "Está lento em todos os Aparelhos? Celular, tv, computador, etc" },
+            { title: "Lentidão - Cômodos", text: "Certo, sobre o local, sente lentidão em todos os cômodos?" },
+            { title: "Lentidão - Site/App", text: "E essa lentidão seria em algum app ou site específico? ou no geral mesmo?" }
+        ];
+
+        presets.forEach(p => {
+            const btn = document.createElement('div');
+            btn.style.padding = '8px';
+            btn.style.margin = '6px 0';
+            btn.style.background = '#2a2a2a';
+            btn.style.borderRadius = '6px';
+            btn.style.cursor = 'pointer';
+            btn.style.transition = '0.2s';
+
+            btn.innerHTML = `
+                <div style="font-weight:bold; color:#4fc3f7;">
+                    ${p.title}
+                </div>
+                <div style="font-size:12px; color:#ccc;">
+                    ${p.text.substring(0, 40)}...
+                </div>
+            `;
+
+            btn.addEventListener('mouseenter', () => {
+                btn.style.background = '#3a3a3a';
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.background = '#2a2a2a';
+            });
+
+            btn.addEventListener('click', () => {
+                const chatBox = document.querySelector('#twemoji-textarea');
+                if (chatBox) {
+                    chatBox.innerHTML = p.text + "<br>";
+                    chatBox.focus();
+                }
+            });
+
+            content.appendChild(btn);
+        });
+
+        box.appendChild(content);
+        document.body.appendChild(box);
+
+        // Toggle
+        let collapsed = true;
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            collapsed = !collapsed;
+
+            if (collapsed) {
+                content.style.display = 'none';
+                toggleBtn.textContent = '+';
+            } else {
+                content.style.display = 'block';
+                toggleBtn.textContent = '–';
+            }
+        });
+
+        // Dragging (only header drags)
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        header.addEventListener('mousedown', (e) => {
+            isDragging = true;
+
+            // Convert bottom/right to top/left BEFORE dragging
+            const rect = box.getBoundingClientRect();
+
+            box.style.left = rect.left + 'px';
+            box.style.top = rect.top + 'px';
+            box.style.right = 'auto';
+            box.style.bottom = 'auto';
+
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                box.style.left = (e.clientX - offsetX) + 'px';
+                box.style.top = (e.clientY - offsetY) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+    });
+
+})();
