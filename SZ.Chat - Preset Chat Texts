@@ -17,13 +17,14 @@
 
         const box = document.createElement('div');
         box.style.position = 'fixed';
-        box.style.bottom = '180px';
+        box.style.bottom = '200px';
         box.style.right = '10px';
         box.style.width = '240px';
         box.style.background = '#1e1e1e';
         box.style.color = '#fff';
         box.style.padding = '10px';
         box.style.border = '1px solid #444';
+        box.style.borderColor = "cyan";
         box.style.borderRadius = '8px';
         box.style.zIndex = '9999';
         box.style.fontFamily = 'Arial, sans-serif';
@@ -47,11 +48,12 @@
 
         const title = document.createElement('strong');
         title.textContent = 'Facilitador de Vidas';
+        title.style.color = "cyan";
         title.style.fontSize = '14px';
 
         const toggleBtn = document.createElement('span');
         toggleBtn.textContent = '↑';
-        toggleBtn.style.cursor = 'pointer';
+        toggleBtn.style.color = "cyan";
         toggleBtn.style.padding = '2px 6px';
         toggleBtn.style.borderRadius = '4px';
         toggleBtn.style.background = '#2a2a2a';
@@ -82,11 +84,14 @@
         content.style.overflowX = 'hidden';  // prevent sideways scroll
 
         const presets = [
-            { title: "Pode testar", text: "Obrigado por aguardar, poderia testar a conexão agora, por favor, fiz alguns ajustes na rede." },
-            { title: "Testar na 5G", text: "Vão aparecer duas redes, pode conectar e testar na 5G, por favor, pois nela chega mais velocidade que a normal." },
             { title: "Lentidão - Aparelhos", text: "Está lento em todos os aparelhos? Celular, tv, computador, etc" },
             { title: "Lentidão - Cômodos", text: "Certo, sobre o local, sente lentidão em todos os cômodos?" },
-            { title: "Lentidão - Site/App", text: "E essa lentidão seria em algum app ou site específico? ou no geral mesmo?" }
+            { title: "Lentidão - Site/App", text: "E essa lentidão seria em algum app ou site específico? ou no geral mesmo?" },
+            { title: "Foto aparelhos", text: "Poderia enviar uma foto dos aparelhos da internet? Enquanto isso eu fazer alguns ajustes no sistema." },
+            { title: "Pode testar", text: "Obrigado por aguardar, poderia testar a conexão agora, por favor, fiz alguns ajustes na rede, se for na tv, precisa reiniciar a tv antes." },
+            { title: "Testar na 5G", text: "Vão aparecer duas redes, pode conectar e testar na 5G, por favor, pois nela chega mais velocidade que a normal." },
+            { title: "Deu certo", text: "Perfeito! Consigo lhe ajudar em algo mais no momento? ou tudo certo agora?" },
+            { title: "Finalizar", text: "Foi um prazer te atender! 😊\n\nProtocolo do atendimento: *XXXXX*\n\nNosso compromisso é oferecer um atendimento ágil, claro e atencioso, sempre com foco na melhor experiência para você.\n\n📲 Em breve, você receberá uma pesquisa rápida pelo WhatsApp sobre o atendimento de hoje. Sua opinião é muito importante para continuarmos evoluindo e oferecendo um serviço cada vez melhor.\n\nSe conseguimos te ajudar como esperava, ficaremos muito felizes em receber sua avaliação positiva!\n\n📞 Lembre-se: nosso *suporte* está disponível *24 horas* por dia, todos os dias da semana, sempre pronto para te ajudar no que for preciso.\n\nAgradecemos o contato!"}
         ];
 
         presets.forEach(p => {
@@ -136,7 +141,7 @@
         // Show on hover
         box.addEventListener('mouseenter', () => {
             content.style.display = 'block';
-            toggleBtn.textContent = '↓';
+            toggleBtn.textContent = '🍆';
         });
 
         // Hide when leaving
