@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SZ.Chat - Preset Chat Texts
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Draggable UI with preset texts, collapsible upward
 // @match        https://clusterscpr.sz.chat/*
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Preset%20Chat%20Texts
@@ -125,13 +125,29 @@ O protocolo do seu atendimento é *${protocoloAtual || '-----'}*.
 
 Já comecei seu atendimento, vou fazer algumas verificações na sua conexão, só um momento.`
             },
-            { title: "Lentidão - Aparelhos", text: "Está lento em todos os aparelhos? Celular, tv, computador, etc" },
-            { title: "Lentidão - Cômodos", text: "Certo, sobre o local, sente lentidão em todos os cômodos?" },
-            { title: "Lentidão - Site/App", text: "E essa lentidão seria em algum app ou site específico? ou no geral mesmo?" },
+            { title: "Lentidão 1 - Aparelhos", text: "Está lento em todos os aparelhos? Celular, tv, computador, etc" },
+            { title: "Lentidão 2 - Cômodos", text: "Certo, sobre o local, sente lentidão em todos os cômodos?" },
+            { title: "Lentidão 3 - Site/App", text: "E essa lentidão seria em algum app ou site específico? ou no geral mesmo?" },
             { title: "Foto aparelhos", text: "Poderia enviar uma foto dos aparelhos da internet? Enquanto isso eu fazer alguns ajustes no sistema." },
             { title: "Pode testar", text: "Obrigado por aguardar, poderia testar a conexão agora, por favor, fiz alguns ajustes na rede, se for na tv, precisa reiniciar a tv antes." },
-            { title: "Testar na 5G", text: "Vão aparecer duas redes, pode conectar e testar na 5G, por favor, pois nela chega mais velocidade que a normal." },
+            { title: "Testar na 5G", text: "Vão aparecer duas redes, normal e 5G, pode conectar e testar na 5G, por favor, pois nela chega mais velocidade que a normal." },
             { title: "Deu certo", text: "Perfeito! Consigo lhe ajudar em algo mais no momento? ou tudo certo agora?" },
+            {
+                title: "Logistica",
+                text: () => `Prezado(a) {{NAME}},
+
+Será necessário o envio de um técnico até o local para resolver a situação.
+Vou transferi-lo(a) agora para o nosso setor de Agendamentos.
+
+📝 *Protocolo*: ${protocoloAtual || '-----'}
+
+Os agendamentos são realizados exclusivamente em horário comercial:
+
+🕒 *Segunda a sexta-feira*: 08h00 às 11h30 | 13h30 às 18h00
+🕒 *Sábado*: 08h00 às 12h00
+
+Por gentileza, aguarde. Em breve, você será atendido dentro do horário informado.`
+            },
             {
                 title: "Finalizar",
                 text: () => `Foi um prazer te atender! 😊
