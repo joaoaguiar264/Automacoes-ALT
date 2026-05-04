@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SZ.Chat - Scripts de Atendimento
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Popup arrastável com formulários de atendimento (Lentidão, etc), salvos por número de telefone
 // @match        https://clusterscpr.sz.chat/*
 // @grant        GM_setValue
