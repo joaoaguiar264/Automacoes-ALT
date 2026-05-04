@@ -10,8 +10,8 @@
 // @grant        GM_deleteValue
 // @run-at       document-idle
 // @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
-// @updateURL
-// @downloadURL
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Scripts%20de%20Atendimento-1.0.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Scripts%20de%20Atendimento-1.0.user.js
 // ==/UserScript==
 
 (function () {
