@@ -4,8 +4,8 @@
 // @version      1.4
 // @description  Draggable UI with preset texts, collapsible upward
 // @match        https://clusterscpr.sz.chat/*
-// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Preset%20Chat%20Texts
-// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Preset%20Chat%20Texts
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Preset%20Chat%20Texts-1.3.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Preset%20Chat%20Texts-1.3.user.js
 // @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @grant        none
 // ==/UserScript==
