@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SZ.Chat - Preset Chat Texts
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  Draggable UI with preset texts, collapsible upward
 // @match        https://clusterscpr.sz.chat/*
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/SZ.Chat%20-%20Preset%20Chat%20Texts
@@ -212,16 +212,31 @@ Agradecemos o contato!`
         box.appendChild(content);
         document.body.appendChild(box);
 
-        // Show on hover
+        let hideTimeout;
+
         box.addEventListener('mouseenter', () => {
+            clearTimeout(hideTimeout);
             content.style.display = 'block';
             toggleBtn.textContent = '🍆';
         });
 
-        // Hide when leaving
         box.addEventListener('mouseleave', () => {
-            content.style.display = 'none';
-            toggleBtn.textContent = '↑';
+            hideTimeout = setTimeout(() => {
+                content.style.display = 'none';
+                toggleBtn.textContent = '↑';
+            }, 200); // 200ms de grace period
+        });
+
+        // Também adiciona nos próprios listeners do content
+        content.addEventListener('mouseenter', () => {
+            clearTimeout(hideTimeout);
+        });
+
+        content.addEventListener('mouseleave', () => {
+            hideTimeout = setTimeout(() => {
+                content.style.display = 'none';
+                toggleBtn.textContent = '↑';
+            }, 200);
         });
 
         // Dragging (only header drags)
@@ -245,12 +260,15 @@ Agradecemos o contato!`
 
         document.addEventListener('mousemove', (e) => {
             if (isDragging) {
-                box.style.left = (e.clientX - offsetX) + 'px';
-                box.style.top = (e.clientY - offsetY) + 'px';
+                const maxX = window.innerWidth - box.offsetWidth;
+                const maxY = window.innerHeight - box.offsetHeight;
+
+                box.style.left = Math.min(Math.max(0, e.clientX - offsetX), maxX) + 'px';
+                box.style.top = Math.min(Math.max(0, e.clientY - offsetY), maxY) + 'px';
             }
         });
 
-        document.addEventListener('mouseup', () => {
+        window.addEventListener('mouseup', () => {
             if (isDragging) {
                 localStorage.setItem('szchat_box_position', JSON.stringify({
                     left: box.style.left,
