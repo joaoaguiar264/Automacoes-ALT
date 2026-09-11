@@ -1556,151 +1556,116 @@
             },
         },
 
-        whatsapp_monitoramento: {
-            label: 'Whatsapp - Monitoramento',
+        gmail_monitoramento: {
+            label: 'Gmail - Monitoramento',
             render: () => `
                 <div class="szc-card">
-                    <h3>Tipo de evento <span class="szc-badge">obrigatório</span></h3>
-                    <div class="szc-check-list">
-                        <div class="szc-check-item" data-show-when="tipoEvento=alarme">
-                            <label class="szc-check-header">
-                                <input type="radio" name="tipoEvento" data-id="tipoEvento" value="alarme">
-                                <span>Evento com alarme no INT6</span>
-                            </label>
-                            <div class="szc-subbox">
-                                <div class="szc-stack">
-                                    <div class="szc-field">
-                                        <div class="szc-label">Nome do cliente</div>
-                                        <input class="szc-input" data-id="nomeClienteAlarme" type="text" placeholder="Digite o nome do cliente">
-                                    </div>
-                                    <div class="szc-field">
-                                        <div class="szc-label">Validado energia</div>
-                                        <div class="szc-check-list">
-                                            <div class="szc-check-item">
-                                                <label class="szc-check-header">
-                                                    <input type="radio" name="energiaAlarme" data-id="energiaAlarme" value="Sim">
-                                                    <span>Sim</span>
-                                                </label>
-                                            </div>
-                                            <div class="szc-check-item">
-                                                <label class="szc-check-header">
-                                                    <input type="radio" name="energiaAlarme" data-id="energiaAlarme" value="Não">
-                                                    <span>Não</span>
-                                                </label>
-                                            </div>
-                                        </div>
+                    <h3>Reportar evento</h3>
+
+                    <div class="szc-stack">
+                        <div class="szc-field">
+                            <div class="szc-label">ID do evento:</div>
+                            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                                <input
+                                    class="szc-input"
+                                    data-id="idEvento"
+                                    data-disable-when="naoPossuiId=true"
+                                    type="text"
+                                    placeholder="Insira ID do evento"
+                                    style="width:250px; max-width:100%;"
+                                >
+                                <label class="szc-check-header" style="padding:0; font-weight:500;">
+                                    <input type="checkbox" data-id="naoPossuiId">
+                                    <span>Não possui</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="szc-field">
+                            <div class="szc-label">Nome do Cliente:</div>
+                            <input class="szc-input" data-id="nomeCliente" type="text">
+                        </div>
+
+                        <div class="szc-field">
+                            <div class="szc-label">Ponto de Acesso:</div>
+                            <input class="szc-input" data-id="pontoAcesso" type="text">
+                        </div>
+
+                        <div class="szc-field">
+                            <div class="szc-label">Horário da queda:</div>
+                            <input class="szc-input" data-id="horarioQueda" type="text" placeholder="Ex: 14h30">
+                        </div>
+
+                        <div class="szc-field">
+                            <div class="szc-label">Validado a energia:</div>
+                            <div class="szc-check-list">
+                                <div class="szc-check-item">
+                                    <label class="szc-check-header">
+                                        <input type="radio" name="energia" data-id="energia" value="Sim">
+                                        <span>Sim</span>
+                                    </label>
+                                </div>
+
+                                <div class="szc-check-item" data-show-when="energia=Não">
+                                    <label class="szc-check-header">
+                                        <input type="radio" name="energia" data-id="energia" value="Não">
+                                        <span>Não</span>
+                                    </label>
+                                    <div class="szc-subbox">
+                                        <div class="szc-label">Motivo:</div>
+                                        <input class="szc-input" data-id="motivoEnergia" type="text" placeholder="Descreva o motivo...">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="szc-check-item" data-show-when="tipoEvento=ponto">
-                            <label class="szc-check-header">
-                                <input type="radio" name="tipoEvento" data-id="tipoEvento" value="ponto">
-                                <span>Ponto de acesso (não alarmado no INT6)</span>
-                            </label>
-                            <div class="szc-subbox">
-                                <div class="szc-stack">
-                                    <div class="szc-field">
-                                        <div class="szc-label">Nome do cliente</div>
-                                        <input class="szc-input" data-id="nomeClientePonto" type="text" placeholder="Digite o nome do cliente">
+                        <div class="szc-field">
+                            <div class="szc-label">O ponto de acesso é condomínio?</div>
+                            <div class="szc-check-list">
+                                <div class="szc-check-item" data-show-when="eCondominio=Sim">
+                                    <label class="szc-check-header">
+                                        <input type="radio" name="eCondominio" data-id="eCondominio" value="Sim">
+                                        <span>Sim</span>
+                                    </label>
+                                    <div class="szc-subbox">
+                                        <div class="szc-label">Telefone:</div>
+                                        <input class="szc-input" data-id="telefone" type="text" placeholder="(DDD) 9xxxx-xxxx" style="width:250px; max-width:100%;">
                                     </div>
-                                    <div class="szc-field">
-                                        <div class="szc-label">Ponto de acesso</div>
-                                        <input class="szc-input" data-id="pontoAcesso" type="text" placeholder="Digite o ponto de acesso">
-                                    </div>
-                                    <div class="szc-field">
-                                        <div class="szc-label">Validado energia</div>
-                                        <div class="szc-check-list">
-                                            <div class="szc-check-item">
-                                                <label class="szc-check-header">
-                                                    <input type="radio" name="energiaPonto" data-id="energiaPonto" value="Sim">
-                                                    <span>Sim</span>
-                                                </label>
-                                            </div>
-                                            <div class="szc-check-item">
-                                                <label class="szc-check-header">
-                                                    <input type="radio" name="energiaPonto" data-id="energiaPonto" value="Não">
-                                                    <span>Não</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+
+                                <div class="szc-check-item">
+                                    <label class="szc-check-header">
+                                        <input type="radio" name="eCondominio" data-id="eCondominio" value="Não">
+                                        <span>Não</span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="szc-check-item" data-show-when="tipoEvento=condominio">
-                            <label class="szc-check-header">
-                                <input type="radio" name="tipoEvento" data-id="tipoEvento" value="condominio">
-                                <span>Condomínio / Edifício (não alarmado no INT6)</span>
-                            </label>
-                            <div class="szc-subbox">
-                                <div class="szc-stack">
-                                    <div class="szc-field">
-                                        <div class="szc-label">Condomínio</div>
-                                        <input class="szc-input" data-id="nomeCondominio" type="text" placeholder="Nome do condomínio">
-                                    </div>
-                                    <div class="szc-field">
-                                        <div class="szc-label">Nome do cliente</div>
-                                        <input class="szc-input" data-id="nomeClienteCondominio" type="text" placeholder="Digite o nome do cliente">
-                                    </div>
-                                    <div class="szc-field">
-                                        <div class="szc-label">Ap / Bloco</div>
-                                        <input class="szc-input" data-id="apCasaBloco" type="text" placeholder="Ex: Ap 302 / Bloco B">
-                                    </div>
-                                    <div class="szc-field">
-                                        <div class="szc-label">Energia corredor</div>
-                                        <div class="szc-check-list">
-                                            <div class="szc-check-item">
-                                                <label class="szc-check-header">
-                                                    <input type="radio" name="energiaCorredor" data-id="energiaCorredor" value="Sim">
-                                                    <span>Sim</span>
-                                                </label>
-                                            </div>
-                                            <div class="szc-check-item">
-                                                <label class="szc-check-header">
-                                                    <input type="radio" name="energiaCorredor" data-id="energiaCorredor" value="Não">
-                                                    <span>Não</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="szc-card">
-                    <h3>Contato <span class="szc-badge">obrigatório</span></h3>
-                    <div class="szc-field">
-                        <div class="szc-label">Telefone</div>
-                        <input class="szc-input" data-id="telefone" type="text" placeholder="(DDD) 9xxxx-xxxx">
                     </div>
                 </div>
             `,
             generate: (v) => {
-                const valOrNA = (x) => (x && x.toString().trim()) ? x.toString().trim() : 'Não informado.';
-                const linhas = [];
+                const valOrNA = (x) => {
+                    x = (x || '').toString().trim();
+                    return x ? x : 'Não informado';
+                };
 
-                if (v.tipoEvento === 'alarme') {
-                    linhas.push('Nome do cliente: ' + valOrNA(v.nomeClienteAlarme));
-                    linhas.push('Validado energia: ' + valOrNA(v.energiaAlarme));
-                } else if (v.tipoEvento === 'ponto') {
-                    linhas.push('Nome do cliente: ' + valOrNA(v.nomeClientePonto));
-                    linhas.push('Ponto de acesso: ' + valOrNA(v.pontoAcesso));
-                    linhas.push('Validado energia: ' + valOrNA(v.energiaPonto));
-                } else if (v.tipoEvento === 'condominio') {
-                    linhas.push('Condomínio: ' + valOrNA(v.nomeCondominio));
-                    linhas.push('Nome do cliente: ' + valOrNA(v.nomeClienteCondominio));
-                    linhas.push('Ap/Bloco: ' + valOrNA(v.apCasaBloco));
-                    linhas.push('Energia corredor: ' + valOrNA(v.energiaCorredor));
-                } else {
-                    linhas.push('Tipo de evento não selecionado.');
+                const linhas = [];
+                const idVal = v.naoPossuiId ? 'Não possui' : valOrNA(v.idEvento);
+
+                linhas.push('ID do evento: ' + idVal);
+                linhas.push('Nome do Cliente: ' + valOrNA(v.nomeCliente));
+                linhas.push('Ponto de Acesso: ' + valOrNA(v.pontoAcesso));
+                linhas.push('Horário da queda: ' + valOrNA(v.horarioQueda));
+                linhas.push('Validado a energia: ' + valOrNA(v.energia));
+
+                if (v.energia === 'Não') {
+                    linhas.push('Motivo: ' + valOrNA(v.motivoEnergia));
                 }
 
-                linhas.push('Telefone: ' + valOrNA(v.telefone));
+                if (v.eCondominio === 'Sim') {
+                    linhas.push('Telefone: ' + valOrNA(v.telefone));
+                }
 
                 return linhas.join('\n');
             },
