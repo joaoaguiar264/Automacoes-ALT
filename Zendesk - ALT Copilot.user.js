@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - ALT Copilot
 // @namespace    alt.copilot
-// @version      0.7.2
+// @version      0.7.3
 // @description  Sistema de presets/mensagens prontas para atendimento ALT
 // @author       João Aguiar
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
