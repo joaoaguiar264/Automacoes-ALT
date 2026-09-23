@@ -5,8 +5,8 @@
 // @description  Sistema de presets/mensagens prontas para atendimento ALT
 // @author       João Aguiar
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
-// @updateURL
-// @downloadURL
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20ALT%20Copilot.user.js
+// @downloadURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20ALT%20Copilot.user.js
 // @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @grant        none
 // @run-at       document-idle
