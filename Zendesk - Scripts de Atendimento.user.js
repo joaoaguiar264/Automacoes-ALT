@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - Scripts de Atendimento
 // @namespace    http://tampermonkey.net/
-// @version      2.1.1
+// @version      2.1.2
 // @description  Scripts de atendimento por ticket no Zendesk
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @grant        GM_setValue
