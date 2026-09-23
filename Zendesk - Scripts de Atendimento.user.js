@@ -8,6 +8,8 @@
 // @grant        GM_getValue
 // @grant        GM_deleteValue
 // @run-at       document-idle
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/ToolsVGL%20--%20SZ.chat%20-%20Notifica%C3%A7%C3%A3o%20Sua%20vez-1.0.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/ToolsVGL%20--%20SZ.chat%20-%20Notifica%C3%A7%C3%A3o%20Sua%20vez-1.0.user.js
 // @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // ==/UserScript==
 (function () {
