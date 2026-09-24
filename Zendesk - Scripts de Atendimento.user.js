@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - Scripts de Atendimento
 // @namespace    http://tampermonkey.net/
-// @version      2.1.2
+// @version      2.1.3
 // @description  Scripts de atendimento por ticket no Zendesk
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @grant        GM_setValue
@@ -275,9 +275,6 @@
                         }
                     ])
                 ], true),
-                card('Histórico de atendimento', [
-                    text('historicoAtendimento', '', 'Exemplo: Cliente possui 2 atendimentos nos últimos 3 meses')
-                ], true),
                 card('Considerações finais', [
                     radio('consideracoesFinais', '', [
                         {
@@ -392,7 +389,6 @@
                         out.push(`Outras ações realizadas: ${v.outrasAcoes}`);
                     out.push('');
                 }
-                out.push('----------- HISTÓRICO DE ATENDIMENTO -----------', valOrNA(v.historicoAtendimento), '');
                 out.push(`Considerações finais - ${v.consideracoesFinais ===
                     'Outros'
                     ? valOrNA(v.infoOutros)
@@ -464,9 +460,6 @@
                     ]),
                     area('infoAdicionais', 'Informações adicionais', 'Detalhes adicionais do atendimento.')
                 ], true),
-                card('Histórico de atendimento', [
-                    text('historicoAtendimento', '', 'Exemplo: Cliente possui 2 atendimentos nos últimos 3 meses')
-                ], true),
                 card('📌 Conclusão', [
                     radio('conclusao', '', [
                         {
@@ -509,7 +502,6 @@
                 if (clean(v.infoAdicionais)) {
                     out.push(`Informações adicionais: ${clean(v.infoAdicionais)}`);
                 }
-                out.push('', '----------- HISTÓRICO DE ATENDIMENTO -----------', valOrNA(v.historicoAtendimento), '');
                 if (v.conclusao) {
                     out.push(`Conclusão: ${v.conclusao}`);
                 }
@@ -574,9 +566,6 @@
                     ]),
                     area('infoAdicionais', 'Informações adicionais', 'Detalhes adicionais do atendimento.')
                 ], true),
-                card('Histórico de atendimento', [
-                    text('historicoAtendimento', '', 'Exemplo: Cliente possui 2 atendimentos nos últimos 3 meses')
-                ], true),
                 card('📌 Conclusão', [
                     radio('conclusao', '', [
                         {
@@ -615,9 +604,6 @@
                 out.push(`Demais clientes da caixa estão: ${valOrNA(v.clientesCaixa)}`, `Validado energia no local: ${valOrNA(v.energiaLocal)}`, `Equipamentos reiniciados: ${valOrNA(v.equipReiniciados)}`);
                 if (clean(v.infoAdicionais)) {
                     out.push('', `Informações adicionais: ${clean(v.infoAdicionais)}`);
-                }
-                if (clean(v.historicoAtendimento)) {
-                    out.push('', '----------- HISTÓRICO DE ATENDIMENTO -----------', '', `Histórico de atendimento: ${clean(v.historicoAtendimento)}`);
                 }
                 if (v.conclusao) {
                     out.push('', `Conclusão: ${v.conclusao}`);
@@ -692,9 +678,6 @@
                 card('Outras ações realizadas', [
                     area('outrasAcoes', '', 'Descreva outras ações ou verificações realizadas durante o atendimento.')
                 ]),
-                card('Histórico de atendimento', [
-                    text('historicoAtendimento', '', 'Exemplo: Cliente possui 2 atendimentos nos últimos 3 meses')
-                ], true),
                 card('📌 Conclusão', [
                     radio('conclusao', '', [
                         {
@@ -775,7 +758,6 @@
                 if (clean(v.outrasAcoes)) {
                     out.push(`Outras ações realizadas: ${clean(v.outrasAcoes)}`, '');
                 }
-                out.push('----------- HISTÓRICO DE ATENDIMENTO -----------', valOrNA(v.historicoAtendimento), '');
                 if (v.conclusao) {
                     out.push(`Conclusão: ${v.conclusao}`);
                 }
