@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.5.0
 // @description  Abre automaticamente no AutoISP o cliente do ticket ativo do Zendesk
-// @author       ALT
+// @author       João Aguiar
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @match        https://autoisp.gegnet.com.br/subscribers*
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Atalho%20AutoISP.user.js
