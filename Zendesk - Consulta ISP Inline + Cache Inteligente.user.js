@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Zendesk - Consulta ISP Inline + Cache Inteligente
+// @name         Consulta ISP Inline + Cache Inteligente
 // @namespace    http://tampermonkey.net/
-// @version      8.0
+// @version      8.1
 // @description  Auto-load com cache em memória, integração completa Zendesk + Amigo + AutoISP e busca ao vivo de clientes na caixa (splitter)
-// @match        https://*.zendesk.com/agent/*
+// @match        https://*.zendesk.com/agent/tickets/*
 // @match        https://plataforma.sejaamigo.com.br/*
 // @match        https://autoisp.brasiltecpar.com.br/subscribers*
 // @match        https://autoisp.gegnet.com.br/subscribers*
@@ -12,8 +12,6 @@
 // @grant        GM_getValue
 // @connect      n8n.gegnet.com.br
 // @connect      plataforma.sejaamigo.com.br
-// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Consulta%20ISP%20Inline%20+%20Cache%20Inteligente.user.js
-// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Consulta%20ISP%20Inline%20+%20Cache%20Inteligente.user.js
 // @connect      api.macvendors.com
 // ==/UserScript==
 
@@ -93,8 +91,8 @@
                 }
             }).catch((err) => {
                 const msg = err === 'LOGIN_REQUIRED'
-                    ? '❌ Faça login na Amigo (em outra aba) para consultar a caixa.'
-                    : '❌ Erro ao consultar a Amigo.';
+                ? '❌ Faça login na Amigo (em outra aba) para consultar a caixa.'
+                : '❌ Erro ao consultar a Amigo.';
                 box.innerHTML = `<div style="text-align:center; padding:8px; color:#dc3545;">${msg}</div>`;
             });
         }
@@ -145,7 +143,22 @@
         function renderizarDados(panel, data) {
             panel.querySelector('#isp-status').innerText = data.isOnline ? '🟢 ONLINE' : '🔴 OFFLINE';
             panel.querySelector('#isp-status').className = 'isp-badge ' + (data.isOnline ? 'isp-online' : 'isp-offline');
-            panel.querySelector('#isp-ip').innerText = data.ip || '-';
+            const ipLink = panel.querySelector('#isp-ip');
+
+            if (data.ip && data.ip !== '-') {
+
+                ipLink.innerText = `${data.ip} ↗`;
+
+                ipLink.href =
+                    /^https?:\/\//i.test(data.ip)
+                    ? data.ip
+                : `http://${data.ip}`;
+
+            } else {
+
+                ipLink.innerText = '-';
+                ipLink.href = '#';
+            }
             panel.querySelector('#isp-uptime').innerText = data.uptime || '-';
             panel.querySelector('#isp-splitter').innerText = data.splitter || '-';
             panel.querySelector('#isp-limite').innerText = data.limite || '-';
@@ -286,7 +299,14 @@
                             <a id="isp-link-onu" href="#" target="_blank" class="isp-link">ONU ↗</a>
                         </div>
                         <div class="isp-grid">
-                            <div><span class="isp-label">IP ATUAL</span><span id="isp-ip" class="isp-val">-</span></div>
+                        <div>
+                            <span class="isp-label">IP ATUAL</span>
+                            <a id="isp-ip"
+                            class="isp-val isp-link"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer">-</a>
+                        </div>
                             <div><span class="isp-label">UPTIME</span><span id="isp-uptime" class="isp-val">-</span></div>
                             <div><span class="isp-label">SPLITTER</span><span id="isp-splitter" class="isp-val">-</span></div>
                             <div><span class="isp-label">LIMITE</span><span id="isp-limite" class="isp-val">-</span></div>
