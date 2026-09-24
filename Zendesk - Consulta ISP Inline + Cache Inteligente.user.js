@@ -13,7 +13,7 @@
 // @connect      n8n.gegnet.com.br
 // @connect      plataforma.sejaamigo.com.br
 // @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Consulta%20ISP%20Inline%20+%20Cache%20Inteligente.user.js
-// @downloadURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Consulta%20ISP%20Inline%20+%20Cache%20Inteligente.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Consulta%20ISP%20Inline%20+%20Cache%20Inteligente.user.js
 // @connect      api.macvendors.com
 // ==/UserScript==
 
