@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Consulta ISP Inline + Cache Inteligente
+// @name         Zendesk - Consulta ISP Inline + Cache Inteligente
 // @namespace    http://tampermonkey.net/
 // @version      8.1
 // @description  Auto-load com cache em memória, integração completa Zendesk + Amigo + AutoISP e busca ao vivo de clientes na caixa (splitter)
