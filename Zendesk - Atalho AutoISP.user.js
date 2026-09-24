@@ -6,8 +6,8 @@
 // @author       ALT
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @match        https://autoisp.gegnet.com.br/subscribers*
-// @updateURL
-// @downloadURL
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Atalho%20AutoISP.user.js
+// @downloadURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Atalho%20AutoISP.user.js
 // @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // @grant        none
 // @run-at       document-idle
