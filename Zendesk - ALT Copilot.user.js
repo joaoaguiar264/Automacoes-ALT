@@ -81,7 +81,7 @@
 O protocolo do seu atendimento é *{{PROTOCOL}}*.
 
 Já comecei seu atendimento, vou fazer algumas verificações na sua conexão, só um momento.`,
-            clientKeywords: [],
+            clientKeywords: ['Já sou cliente 😉'],
             agentKeywords: ['Atendimento iniciado por', 'certo', 'problema'],
             priority: 10,
         },
@@ -391,9 +391,7 @@ Ela deve ter no mínimo 8 caracteres e incluir:
                       tab.getAttribute('href') || '';
 
                 ticketId =
-                    href.match(
-                    /\/tickets\/(\d+)/i
-                )?.[1] || '';
+                    href.match(/\/tickets\/(\d+)/i)?.[1] || '';
             }
 
             if (!ticketId) {
@@ -414,18 +412,77 @@ Ela deve ter no mínimo 8 caracteres e incluir:
                 name,
                 number: '',
                 ticketId,
-                displayName:
-                `${name} - #${ticketId}`,
-                key:
-                `ticket_${ticketId}`,
+                displayName: `${name} - #${ticketId}`,
+                key: `ticket_${ticketId}`,
                 title: name,
             };
         },
 
+        getActiveTicketRoot() {
+            const contact =
+                  this.getCurrentContact();
+
+            if (!contact?.ticketId) {
+                return null;
+            }
+
+            const ticketId =
+                  contact.ticketId;
+
+            /*
+         * PRIMEIRA OPÇÃO:
+         *
+         * layout do MESMO ticket selecionado
+         * e obrigatoriamente ativo.
+         */
+            const activeLayout =
+                  document.querySelector(
+                      `[data-test-id="ticket-${ticketId}-standard-layout"][data-is-active="true"]`
+                  );
+
+            if (activeLayout) {
+                return activeLayout;
+            }
+
+            /*
+         * Fallback.
+         */
+            const conversation =
+                  document.querySelector(
+                      `.conversation-polaris[data-ticket-id="${ticketId}"]`
+                  );
+
+            if (conversation) {
+                const layout =
+                      conversation.closest(
+                          '[data-test-id^="ticket-"][data-is-active="true"]'
+                      );
+
+                if (layout) {
+                    return layout;
+                }
+            }
+
+            return null;
+        },
+
         getMessages() {
+            const root =
+                  this.getActiveTicketRoot();
+
+            if (!root) {
+                return [];
+            }
+
+            /*
+         * MUITO IMPORTANTE:
+         *
+         * agora lê SOMENTE mensagens
+         * do ticket atualmente selecionado.
+         */
             const items =
-                  document.querySelectorAll(
-                      CONFIG.SELECTORS.messageItems
+                  root.querySelectorAll(
+                      '[data-test-id="omni-log-comment-item"]'
                   );
 
             const messages = [];
@@ -445,13 +502,6 @@ Ela deve ter no mínimo 8 caracteres e incluir:
 
                 let role = null;
 
-                /*
-                Zendesk:
-
-                end-user = cliente
-                agent    = atendente
-                bot      = automação
-            */
                 if (type === 'end-user') {
                     role = 'client';
                 }
@@ -465,18 +515,6 @@ Ela deve ter no mínimo 8 caracteres e incluir:
                     return;
                 }
 
-                /*
-                Pega SOMENTE o conteúdo da mensagem.
-
-                Isso é importante porque o article também pode
-                possuir:
-
-                - mensagem citada
-                - horário
-                - nome
-                - botões
-                - indicador de leitura
-            */
                 const contentEl =
                       bubble.querySelector(
                           CONFIG.SELECTORS.messageContent
@@ -534,14 +572,40 @@ Ela deve ter no mínimo 8 caracteres e incluir:
     // ║  CHAT WRITER                                                     ║
     // ╚══════════════════════════════════════════════════════════════════╝
     const ChatWriter = {
-        busy: false,
-
         findInput() {
-            for (const sel of CONFIG.SELECTORS.chatInput) {
-                const candidates = document.querySelectorAll(sel);
+            /*
+         * Não procura mais na página inteira.
+         *
+         * Primeiro descobre qual ticket está ativo.
+         */
+            const root =
+                  ChatReader.getActiveTicketRoot();
+
+            if (!root) {
+                console.error(
+                    '[ALTCopilot] Layout do ticket ativo não encontrado.'
+                );
+
+                return null;
+            }
+
+            /*
+         * E SOMENTE dentro dele procura
+         * o CKEditor.
+         */
+            for (
+                const selector
+                of CONFIG.SELECTORS.chatInput
+            ) {
+                const candidates =
+                      root.querySelectorAll(
+                          selector
+                      );
 
                 for (const el of candidates) {
-                    if (this._isVisible(el)) {
+                    if (
+                        this._isUsable(el)
+                    ) {
                         return el;
                     }
                 }
@@ -550,362 +614,213 @@ Ela deve ter no mínimo 8 caracteres e incluir:
             return null;
         },
 
-        _isVisible(el) {
-            if (!el) return false;
-
-            const rect = el.getBoundingClientRect();
-
-            return rect.width > 0 && rect.height > 0;
-        },
-
-        _waitFrames(count = 2) {
-            return new Promise((resolve) => {
-                const next = () => {
-                    if (--count <= 0) {
-                        resolve();
-                        return;
-                    }
-
-                    requestAnimationFrame(next);
-                };
-
-                requestAnimationFrame(next);
-            });
-        },
-
-        _cleanText(text) {
-            return (text || '')
-                .replace(/\u200B/g, '')
-                .replace(/\u00A0/g, ' ')
-                .replace(/\r/g, '')
-                .trim();
-        },
-
-        _selectionIsInside(input) {
-            const selection = window.getSelection();
-
-            if (!selection || !selection.rangeCount) {
+        _isUsable(el) {
+            if (!el) {
                 return false;
             }
 
-            const range = selection.getRangeAt(0);
+            const rect =
+                  el.getBoundingClientRect();
 
-            let node = range.commonAncestorContainer;
+            const style =
+                  window.getComputedStyle(el);
 
-            if (node.nodeType !== Node.ELEMENT_NODE) {
-                node = node.parentElement;
+            if (
+                style.display === 'none' ||
+                style.visibility === 'hidden'
+            ) {
+                return false;
             }
 
-            return node === input || input.contains(node);
-        },
-
-        async _selectAll(input) {
-            input.focus();
-
             /*
-         * MUITO IMPORTANTE:
-         *
-         * usamos o selectAll nativo do navegador.
-         *
-         * Isso faz o CKEditor receber uma mudança de seleção
-         * muito mais próxima de um Ctrl+A real.
+         * Confere novamente se esse editor
+         * pertence ao ticket ativo.
          */
-            document.execCommand(
-                'selectAll',
-                false,
-                null
-            );
-
-            /*
-         * Dá tempo para o CKEditor sincronizar
-         * DOM Selection -> Model Selection.
-         */
-            await this._waitFrames(3);
-
-            const selection = window.getSelection();
-
-            const editorText = this._cleanText(
-                input.innerText || input.textContent
-            );
-
-            const selectedText = this._cleanText(
-                selection?.toString()
-            );
-
-            /*
-         * Segurança:
-         *
-         * se por algum motivo selectAll selecionou algo
-         * fora do editor, criamos novamente a seleção
-         * limitada ao editor.
-         */
-            const selectionLooksCorrect =
-                  this._selectionIsInside(input) &&
-                  (
-                      !editorText ||
-                      selectedText.length >=
-                      Math.floor(editorText.length * 0.8)
+            const layout =
+                  el.closest(
+                      '[data-test-id^="ticket-"][data-is-active]'
                   );
 
-            if (!selectionLooksCorrect) {
-                const range =
-                      document.createRange();
+            if (
+                layout &&
+                layout.getAttribute(
+                    'data-is-active'
+                ) !== 'true'
+            ) {
+                return false;
+            }
 
-                range.selectNodeContents(input);
+            return (
+                rect.width > 0 &&
+                rect.height > 0 &&
+                el.getAttribute(
+                    'contenteditable'
+                ) === 'true'
+            );
+        },
 
-                selection.removeAllRanges();
-                selection.addRange(range);
+        _escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        },
 
+        _textToHtml(text) {
+            return String(text)
+                .replace(/\r\n?/g, '\n')
+                .split('\n')
+                .map((line) => {
                 /*
-             * Informa explicitamente que a seleção mudou.
-             */
-                document.dispatchEvent(
-                    new Event(
-                        'selectionchange',
-                        {
-                            bubbles: true
-                        }
-                    )
-                );
+                 * Mantém linhas vazias
+                 * entre parágrafos.
+                 */
+                if (!line) {
+                    return '<p><br></p>';
+                }
 
-                await this._waitFrames(3);
-            }
+                return (
+                    `<p>${this._escapeHtml(line)}</p>`
+                );
+            })
+                .join('');
         },
 
-        async _clearEditor(input) {
-            const before = this._cleanText(
-                input.innerText || input.textContent
-            );
+        insertText(text) {
+            const input =
+                  this.findInput();
 
-            if (!before) {
-                return true;
-            }
-
-            /*
-         * Primeira tentativa.
-         */
-            await this._selectAll(input);
-
-            document.execCommand(
-                'delete',
-                false,
-                null
-            );
-
-            /*
-         * O CKEditor precisa de um tempinho para
-         * refletir a alteração no model e reconstruir
-         * o conteúdo do DOM.
-         */
-            await this._waitFrames(3);
-
-            let remaining = this._cleanText(
-                input.innerText || input.textContent
-            );
-
-            /*
-         * Se ainda sobrou alguma coisa, fazemos
-         * novamente. Não inserimos texto enquanto
-         * houver conteúdo antigo.
-         */
-            if (remaining) {
-                await this._selectAll(input);
-
-                document.execCommand(
-                    'delete',
-                    false,
-                    null
-                );
-
-                await this._waitFrames(3);
-
-                remaining = this._cleanText(
-                    input.innerText || input.textContent
-                );
-            }
-
-            /*
-         * Se ainda não limpou, ABORTA.
-         *
-         * É muito melhor não colocar nada do que
-         * concatenar mensagens e bagunçar o atendimento.
-         */
-            if (remaining) {
+            if (!input) {
                 console.error(
-                    '[ALTCopilot] Não foi possível limpar completamente o editor.',
-                    {
-                        before,
-                        remaining
-                    }
+                    '[ALTCopilot] Campo do ticket ativo não encontrado.'
                 );
 
                 return false;
             }
 
-            return true;
-        },
-
-        async _moveCursorToEnd(input) {
-            input.focus();
-
-            const selection =
-                  window.getSelection();
-
-            const range =
-                  document.createRange();
-
-            range.selectNodeContents(input);
-            range.collapse(false);
-
-            selection.removeAllRanges();
-            selection.addRange(range);
-
-            document.dispatchEvent(
-                new Event(
-                    'selectionchange',
-                    {
-                        bubbles: true
-                    }
-                )
-            );
-
-            await this._waitFrames(2);
-        },
-
-        async _paste(input, text) {
-            input.focus();
-
-            const dataTransfer =
-                  new DataTransfer();
-
-            dataTransfer.setData(
-                'text/plain',
-                text
-            );
-
-            const pasteEvent =
-                  new ClipboardEvent(
-                      'paste',
-                      {
-                          bubbles: true,
-                          cancelable: true,
-                          composed: true,
-                          clipboardData: dataTransfer,
-                      }
-                  );
-
             /*
-         * SOMENTE UM método de inserção.
-         *
-         * Não existe mais fallback que escreve no DOM.
-         * Isso elimina a principal fonte das duplicações.
+         * Agora é a instância do CKEditor
+         * DO TICKET ATUAL.
          */
-            input.dispatchEvent(
-                pasteEvent
-            );
+            const editor =
+                  input.ckeditorInstance;
 
-            await this._waitFrames(3);
-
-            const result = this._cleanText(
-                input.innerText ||
-                input.textContent
-            );
-
-            /*
-         * Apenas verifica se alguma coisa entrou.
-         */
-            if (!result) {
+            if (!editor) {
                 console.error(
-                    '[ALTCopilot] O Zendesk não aceitou o paste.'
+                    '[ALTCopilot] Instância do CKEditor não encontrada.',
+                    input
                 );
 
                 return false;
             }
-
-            return true;
-        },
-
-        async insertText(
-        text,
-         mode = 'replace'
-        ) {
-            /*
-         * Impede dois cliques rápidos ou duas execuções
-         * simultâneas.
-         */
-            if (this.busy) {
-                console.warn(
-                    '[ALTCopilot] Inserção já em andamento.'
-                );
-
-                return false;
-            }
-
-            this.busy = true;
 
             try {
-                const input =
-                      this.findInput();
+                const html =
+                      this._textToHtml(
+                          text
+                      );
 
-                if (!input) {
-                    console.warn(
-                        '[ALTCopilot] Campo do Zendesk não encontrado.'
+                /*
+             * Substitui TODO o rascunho atual.
+             *
+             * Não existe:
+             *
+             * Selection
+             * Range
+             * Ctrl+A
+             * ClipboardEvent
+             * execCommand
+             * fallback
+             *
+             * Portanto não tem mais motivo
+             * para piscar seleção na tela.
+             */
+                editor.setData(
+                    html
+                );
+
+                /*
+             * Cursor no final.
+             */
+                if (
+                    editor.model &&
+                    editor.model.document
+                ) {
+                    editor.model.change(
+                        (writer) => {
+                            const modelRoot =
+                                  editor.model.document
+                            .getRoot();
+
+                            if (modelRoot) {
+                                writer.setSelection(
+                                    modelRoot,
+                                    'end'
+                                );
+                            }
+                        }
+                    );
+                }
+
+                /*
+             * Foco novamente no editor.
+             */
+                if (
+                    editor.editing &&
+                    editor.editing.view
+                ) {
+                    editor.editing.view.focus();
+                }
+
+                /*
+             * Confirma que o CKEditor
+             * realmente recebeu os dados.
+             */
+                const result =
+                      editor.getData?.() || '';
+
+                const plainResult =
+                      result
+                .replace(
+                    /<[^>]*>/g,
+                    ''
+                )
+                .replace(
+                    /&nbsp;/g,
+                    ' '
+                )
+                .trim();
+
+                if (
+                    String(text).trim() &&
+                    !plainResult
+                ) {
+                    console.error(
+                        '[ALTCopilot] CKEditor não confirmou a inserção.'
                     );
 
                     return false;
                 }
 
-                input.focus();
-
-                if (mode === 'replace') {
-                    const cleared =
-                          await this._clearEditor(
-                              input
-                          );
-
-                    if (!cleared) {
-                        return false;
-                    }
-                }
-
-                await this._moveCursorToEnd(
-                    input
+                console.log(
+                    '[ALTCopilot] Preset inserido no ticket:',
+                    ChatReader
+                    .getCurrentContact()
+                    ?.ticketId
                 );
-
-                const inserted =
-                      await this._paste(
-                          input,
-                          text
-                      );
-
-                if (!inserted) {
-                    return false;
-                }
-
-                input.focus();
 
                 return true;
 
-            } catch (err) {
+            } catch (error) {
                 console.error(
-                    '[ALTCopilot] Erro ao escrever no Zendesk:',
-                    err
+                    '[ALTCopilot] Erro ao preencher CKEditor:',
+                    error
                 );
 
                 return false;
-
-            } finally {
-                /*
-             * Pequeno delay para impedir double-click
-             * acidental imediatamente após a inserção.
-             */
-                setTimeout(() => {
-                    this.busy = false;
-                }, 250);
             }
         },
     };
-
     // ╔══════════════════════════════════════════════════════════════════╗
     // ║  PRESET ENGINE                                                   ║
     // ║  Lógica de scoring + substituição de variáveis                   ║
@@ -967,68 +882,227 @@ Ela deve ter no mínimo 8 caracteres e incluir:
             .filter((m) => m.role === 'agent')
             .slice(-5);
 
-            const scored = PRESETS.map((preset) => {
-                let score = 0;
-                let matched = false;
+            /*
+     * Estado desse ticket.
+     *
+     * Se ainda não usamos NENHUM preset,
+     * o Bem-vindo será forçado na primeira posição.
+     */
+            const contactKey =
+                  Observer._getContactKey();
 
-                // CLIENTE
-                clientMsgs.forEach((msg, idx) => {
-                    const recency = (idx + 1) / clientMsgs.length;
-                    const isLast = idx === clientMsgs.length - 1;
-                    const normMsg = this._normalize(msg.text);
+            const used =
+                  Storage.getUsedPresets(
+                      contactKey
+                  );
 
-                    (preset.clientKeywords || []).forEach((kw) => {
-                        const normKw = this._normalize(kw);
-                        const regex = new RegExp(`\\b${normKw}\\b`, 'i');
+            const welcome =
+                  PRESETS.find(
+                      (p) => p.id === 'welcome'
+                  );
 
-                        if (regex.test(normMsg)) {
-                            matched = true;
-                            score += preset.priority * recency * (isLast ? 2 : 1);
-                        }
-                    });
-                });
+            const scored =
+                  PRESETS.map((preset) => {
+                      let score = 0;
+                      let matched = false;
 
-                // ATENDENTE
-                agentMsgs.forEach((msg, idx) => {
-                    const recency = (idx + 1) / agentMsgs.length;
-                    const isLast = idx === agentMsgs.length - 1;
-                    const normMsg = this._normalize(msg.text);
+                      /*
+             * Bem-vindo não participa mais
+             * do score normal.
+             *
+             * Ele será controlado manualmente
+             * mais abaixo.
+             */
+                      if (preset.id === 'welcome') {
+                          return {
+                              preset,
+                              score: 0,
+                              matched: false
+                          };
+                      }
 
-                    (preset.agentKeywords || []).forEach((kw) => {
-                        const normKw = this._normalize(kw);
+                      // CLIENTE
+                      clientMsgs.forEach(
+                          (msg, idx) => {
+                              const recency =
+                                    (idx + 1) /
+                                    clientMsgs.length;
 
-                        if (normMsg.includes(normKw)) {
-                            matched = true;
+                              const isLast =
+                                    idx ===
+                                    clientMsgs.length - 1;
 
-                            // pode dar peso diferente
-                            score += (preset.priority * 0.8) * recency * (isLast ? 2 : 1);
-                        }
-                    });
-                });
+                              const normMsg =
+                                    this._normalize(
+                                        msg.text
+                                    );
 
-                return { preset, score, matched };
-            });
+                              (
+                                  preset.clientKeywords ||
+                                  []
+                              ).forEach((kw) => {
+                                  const normKw =
+                                        this._normalize(
+                                            kw
+                                        );
 
-            const results = scored
-            .filter((s) => s.matched)
-            .sort((a, b) => b.score - a.score)
-            .slice(0, limit)
-            .map((s) => s.preset);
+                                  const regex =
+                                        new RegExp(
+                                            `\\b${normKw}\\b`,
+                                            'i'
+                                        );
 
+                                  if (
+                                      regex.test(
+                                          normMsg
+                                      )
+                                  ) {
+                                      matched = true;
+
+                                      score +=
+                                          preset.priority *
+                                          recency *
+                                          (
+                                          isLast
+                                          ? 2
+                                          : 1
+                                      );
+                                  }
+                              });
+                          }
+                      );
+
+                      // ATENDENTE
+                      agentMsgs.forEach(
+                          (msg, idx) => {
+                              const recency =
+                                    (idx + 1) /
+                                    agentMsgs.length;
+
+                              const isLast =
+                                    idx ===
+                                    agentMsgs.length - 1;
+
+                              const normMsg =
+                                    this._normalize(
+                                        msg.text
+                                    );
+
+                              (
+                                  preset.agentKeywords ||
+                                  []
+                              ).forEach((kw) => {
+                                  const normKw =
+                                        this._normalize(
+                                            kw
+                                        );
+
+                                  if (
+                                      normMsg.includes(
+                                          normKw
+                                      )
+                                  ) {
+                                      matched = true;
+
+                                      score +=
+                                          (
+                                          preset.priority *
+                                          0.8
+                                      ) *
+                                          recency *
+                                          (
+                                          isLast
+                                          ? 2
+                                          : 1
+                                      );
+                                  }
+                              });
+                          }
+                      );
+
+                      return {
+                          preset,
+                          score,
+                          matched
+                      };
+                  });
+
+            /*
+     * Sugestões normais.
+     */
+            let results =
+                scored
+            .filter(
+                (s) =>
+                s.matched &&
+                !used.includes(
+                    s.preset.id
+                )
+            )
+            .sort(
+                (a, b) =>
+                b.score -
+                a.score
+            )
+            .map(
+                (s) =>
+                s.preset
+            );
+
+            /*
+     * Se não teve nenhuma sugestão por keyword,
+     * mantém os presets gerais.
+     */
             if (!results.length) {
-                return PRESETS
-                    .filter((p) =>
-                            ['welcome', 'um-momento', 'mais-algo'].includes(p.id)
-                           )
-                    .slice(0, limit);
+                results =
+                    PRESETS.filter(
+                    (p) =>
+                    [
+                        'um-momento',
+                        'mais-algo'
+                    ].includes(p.id) &&
+                    !used.includes(p.id)
+                );
             }
 
-            const contactKey = Observer._getContactKey();
-            const used = Storage.getUsedPresets(contactKey);
+            /*
+     * BEM-VINDO:
+     *
+     * Só aparece enquanto NENHUM preset
+     * foi utilizado nesse ticket.
+     */
+            if (
+                used.length === 0 &&
+                welcome
+            ) {
+                /*
+         * Segurança contra duplicação.
+         */
+                results =
+                    results.filter(
+                    (p) =>
+                    p.id !== 'welcome'
+                );
 
-            return results
-                .filter(p => !used.includes(p.id))
-                .slice(0, limit);
+                results.unshift(
+                    welcome
+                );
+            } else {
+                /*
+         * Depois que qualquer preset foi usado,
+         * o Bem-vindo não aparece mais.
+         */
+                results =
+                    results.filter(
+                    (p) =>
+                    p.id !== 'welcome'
+                );
+            }
+
+            return results.slice(
+                0,
+                limit
+            );
         },
 
         getByCategory(categoryId) {
@@ -1068,15 +1142,6 @@ Ela deve ter no mínimo 8 caracteres e incluir:
           box-shadow: 0 6px 18px rgba(0,0,0,.24);
         }
         #alt-copilot-fab svg { width: 24px; height: 24px; }
-        #alt-copilot-fab.has-suggestions::after {
-          content: '';
-          position: absolute;
-          top: 4px; right: 4px;
-          width: 10px; height: 10px;
-          background: #ff5252;
-          border: 2px solid #fff;
-          border-radius: 50%;
-        }
 
         #alt-copilot-panel {
           right: 20px; bottom: 80px;
@@ -1486,6 +1551,7 @@ Ela deve ter no mínimo 8 caracteres e incluir:
                 attributeFilter: [
                     'data-entity-is-selected',
                     'data-entity-id',
+                    'data-is-active',
                     'data-channel',
                     'data-test-id',
                     'aria-label',
@@ -1554,9 +1620,6 @@ Ela deve ter no mínimo 8 caracteres e incluir:
                         App.render();
                     }
 
-                    if (signature) {
-                        UI.fab?.classList.add('has-suggestions');
-                    }
                 }
             }, 250);
         },
