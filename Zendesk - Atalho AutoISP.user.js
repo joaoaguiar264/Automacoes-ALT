@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - Atalho AutoISP
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.5.0
 // @description  Abre automaticamente no AutoISP o cliente do ticket ativo do Zendesk
 // @author       ALT
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
