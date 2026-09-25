@@ -6,8 +6,8 @@
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @grant        none
 // @run-at       document-idle
-// @updateURL    
-// @downloadURL  
+// @updateURL    https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Painel%20Meus%20Tickets%20Ativos.user.js
+// @downloadURL  https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/Zendesk%20-%20Painel%20Meus%20Tickets%20Ativos.user.js
 // @icon         https://github.com/joaoaguiar264/Automacoes-ALT/raw/refs/heads/main/icon.png
 // ==/UserScript==
 
