@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - Scripts de Atendimento
 // @namespace    http://tampermonkey.net/
-// @version      2.5.0
+// @version      2.6
 // @description  Scripts de atendimento por ticket no Zendesk
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @grant        GM_setValue
@@ -27,31 +27,31 @@
     let checkTimer = null;
     let suppressSave = false;
     const clean = v => String(v ?? '')
-        .replace(/\s+/g, ' ')
-        .trim();
+    .replace(/\s+/g, ' ')
+    .trim();
     const valOrNA = v => clean(v) || 'Não informado.';
     const extractPhone = value => {
         const m = String(value || '')
-            .match(/\+?[\d\s\-()]{8,}/);
+        .match(/\+?[\d\s\-()]{8,}/);
         if (!m)
             return null;
         const digits = m[0].replace(/\D/g, '');
         return digits.length >= 8
             ? digits
-            : null;
+        : null;
     };
     // ============================================================
     // ZENDESK
     // ============================================================
     const getOpenTicketCount = () => {
         const el = document.querySelector(`a[data-test-id="views_views-list_item-view-${OPEN_VIEW_ID}"] ` +
-            `[data-test-id="views_views-list_item_count"]`);
+                                          `[data-test-id="views_views-list_item_count"]`);
         if (!el)
             return null;
         const n = parseInt(clean(el.textContent).replace(/\D/g, ''), 10);
         return Number.isFinite(n)
             ? n
-            : null;
+        : null;
     };
     /*
         Esse é o ponto principal da detecção.
@@ -62,14 +62,14 @@
     */
     const getSelectedTab = () => {
         return document.querySelector('a[data-test-id="header-tab"]' +
-            '[data-entity-type="TICKET_ENTITY_TYPE"]' +
-            '[data-entity-is-selected="true"]');
+                                      '[data-entity-type="TICKET_ENTITY_TYPE"]' +
+                                      '[data-entity-is-selected="true"]');
     };
     const findPhoneInPage = () => {
         const tel = document.querySelector('a[href^="tel:"]');
         if (tel) {
             return (extractPhone(tel.getAttribute('href')) ||
-                extractPhone(tel.textContent));
+                    extractPhone(tel.textContent));
         }
         const selectors = [
             '[data-test-id*="phone"]',
@@ -81,9 +81,9 @@
         ];
         for (const el of document.querySelectorAll(selectors.join(','))) {
             const p = extractPhone(el.value) ||
-                extractPhone(el.getAttribute('title')) ||
-                extractPhone(el.getAttribute('aria-label')) ||
-                extractPhone(el.textContent);
+                  extractPhone(el.getAttribute('title')) ||
+                  extractPhone(el.getAttribute('aria-label')) ||
+                  extractPhone(el.textContent);
             if (p)
                 return p;
         }
@@ -103,8 +103,8 @@
             return null;
         const titleEl = tab.querySelector('[data-test-id="header-tab-title"]');
         const name = clean(titleEl?.getAttribute('title') ||
-            titleEl?.textContent) ||
-            `Ticket #${ticketId}`;
+                           titleEl?.textContent) ||
+              `Ticket #${ticketId}`;
         return {
             key: `ticket_${ticketId}`,
             ticketId,
@@ -123,6 +123,146 @@
             return;
         GM_setValue(STORAGE_PREFIX + key, state);
     };
+
+    // ============================================================
+    // CAMPOS DO TICKET PARA AUTO-PREENCHIMENTO
+    // FIELD - AGENDAMENTO SUPORTE
+    // ============================================================
+
+    const ZD_FIELDS = {
+        nomeCliente: '42732255309844',
+        cidade: '42732286710420',
+        numeroOS: '47674114460692'
+    };
+
+    const getActiveTicketRoot = () => {
+        return document.querySelector(
+            '[data-test-id^="ticket-"][data-test-id$="-standard-layout"][data-is-active="true"]'
+        );
+    };
+
+    const getZendeskTextField = fieldId => {
+        const root = getActiveTicketRoot();
+
+        if (!root) {
+            return '';
+        }
+
+        const wrapper = root.querySelector(
+            `[data-test-id="ticket-form-field-text-field-${fieldId}"]`
+        );
+
+        if (!wrapper) {
+            return '';
+        }
+
+        const input =
+              wrapper.querySelector('input, textarea');
+
+        return clean(
+            input?.value ||
+            input?.textContent ||
+            ''
+        );
+    };
+
+    const getZendeskBrand = () => {
+        const root = getActiveTicketRoot();
+
+        if (!root) {
+            return '';
+        }
+
+        const brand = root.querySelector(
+            '[data-test-id="ticket-system-field-brand-select"] ' +
+            '[data-garden-id="typography.ellipsis"]'
+        );
+
+        return clean(
+            brand?.getAttribute('title') ||
+            brand?.textContent ||
+            ''
+        );
+    };
+
+    function prefillFieldAgendamento() {
+
+        if (
+            currentScriptId !==
+            'field_agendamento_suporte'
+        ) {
+            return;
+        }
+
+        const defaults = {
+            cidade:
+            getZendeskTextField(
+                ZD_FIELDS.cidade
+            ),
+
+            origem:
+            getZendeskBrand(),
+
+            nomeCliente:
+            getZendeskTextField(
+                ZD_FIELDS.nomeCliente
+            ),
+
+            numeroOS:
+            getZendeskTextField(
+                ZD_FIELDS.numeroOS
+            ),
+
+            setor:
+            'CISL - Atendimento de Field Service'
+        };
+
+        Object.entries(defaults)
+            .forEach(([id, value]) => {
+
+            const el =
+                  form.querySelector(
+                      `[data-id="${id}"]`
+                  );
+
+            if (!el) {
+                return;
+            }
+
+            /*
+             * Não sobrescreve algo
+             * que você já digitou/salvou.
+             */
+            if (
+                !clean(el.value) &&
+                clean(value)
+            ) {
+                el.value = value;
+            }
+        });
+
+
+        // Setor fica bloqueado
+        const setor =
+              form.querySelector(
+                  '[data-id="setor"]'
+              );
+
+        if (setor) {
+
+            setor.readOnly = true;
+
+            setor.style.background =
+                '#f1f5f9';
+
+            setor.style.color =
+                '#475569';
+
+            setor.style.cursor =
+                'default';
+        }
+    }
+
     // ============================================================
     // HELPERS DOS FORMULÁRIOS
     // ============================================================
@@ -375,8 +515,8 @@
                     }
                 }
                 const cli = v.outrasAcoesClienteTipo ===
-                    'realizado' &&
-                    v.outrasAcoes;
+                      'realizado' &&
+                      v.outrasAcoes;
                 if (a.length ||
                     onu.length ||
                     cli) {
@@ -390,9 +530,9 @@
                     out.push('');
                 }
                 out.push(`Considerações finais - ${v.consideracoesFinais ===
-                    'Outros'
-                    ? valOrNA(v.infoOutros)
-                    : valOrNA(v.consideracoesFinais)}`);
+                         'Outros'
+                         ? valOrNA(v.infoOutros)
+                         : valOrNA(v.consideracoesFinais)}`);
                 if (v.consideracoesFinais ===
                     'Problema persiste, encaminhado para Logística' &&
                     clean(v.infoLogistica)) {
@@ -611,8 +751,8 @@
                 if (v.conclusao ===
                     'Problema persiste, encaminhado para Logística') {
                     const log = clean(v.infoLogistica) ||
-                        (`Verificado ONU DOWN com alarme de link: ${valOrNA(v.alarmeOnu)}` +
-                            '\nEncaminhar técnico no local.');
+                          (`Verificado ONU DOWN com alarme de link: ${valOrNA(v.alarmeOnu)}` +
+                           '\nEncaminhar técnico no local.');
                     out.push('', '----------- LOGÍSTICA / O.S -----------', '', log);
                 }
                 return out.join('\n');
@@ -880,7 +1020,7 @@
                     }
                 }
                 else if (v.setor ===
-                    'Comercial / SAC / Retenção') {
+                         'Comercial / SAC / Retenção') {
                     out.push(`Descrição da solicitação: ${valOrNA(v.solicitacaoComercial)}`, '');
                 }
                 else {
@@ -931,11 +1071,11 @@
             ],
             generate(v) {
                 const n = x => clean(x) ||
-                    'Não informado';
+                      'Não informado';
                 const out = [
                     `ID do evento: ${v.naoPossuiId
-                        ? 'Não possui'
-                        : n(v.idEvento)}`,
+                    ? 'Não possui'
+                    : n(v.idEvento)}`,
                     `Nome do Cliente: ${n(v.nomeCliente)}`,
                     `Ponto de Acesso: ${n(v.pontoAcesso)}`,
                     `Horário da queda: ${n(v.horarioQueda)}`,
@@ -950,6 +1090,163 @@
                     out.push(`Telefone: ${n(v.telefone)}`);
                 }
                 return out.join('\n');
+            }
+        },
+        // ========================================================
+        // FIELD - AGENDAMENTO SUPORTE
+        // ========================================================
+
+        field_agendamento_suporte: {
+
+            label: 'Field - Agendamento Suporte',
+
+            cards: [
+
+                card(
+                    'Motivo do acionamento',
+                    [
+
+                        radio(
+                            'motivo',
+                            '',
+                            [
+                                {
+                                    value:
+                                    'PRIORIZAÇÃO - (CHAMADO EM ATRASO/CASO CRÍTICO)',
+
+                                    label:
+                                    'PRIORIZAÇÃO - (CHAMADO EM ATRASO/CASO CRÍTICO)'
+                                },
+
+                                {
+                                    value:
+                                    'AGENDAMENTO SEM SLOT',
+
+                                    label:
+                                    'AGENDAMENTO SEM SLOT'
+                                },
+
+                                {
+                                    value:
+                                    'APENAS CONSULTA ANDAMENTO',
+
+                                    label:
+                                    'APENAS CONSULTA ANDAMENTO'
+                                }
+                            ]
+                        )
+
+                    ],
+
+                    true
+                ),
+
+
+                card(
+                    'Informações do cliente',
+                    [
+
+                        text(
+                            'cidade',
+                            'CIDADE',
+                            'Ex.: Chapecó'
+                        ),
+
+
+                        text(
+                            'origem',
+                            'Origem',
+                            'Informe a MARCA, exemplo: GGNET, Evo, ALT...'
+                        ),
+
+
+                        radio(
+                            'criticidade',
+                            'Criticidade',
+                            [
+                                {
+                                    value:
+                                    'Altíssima',
+
+                                    label:
+                                    'Altíssima'
+                                },
+
+                                {
+                                    value:
+                                    'Alta',
+
+                                    label:
+                                    'Alta'
+                                },
+
+                                {
+                                    value:
+                                    'Média',
+
+                                    label:
+                                    'Média'
+                                }
+                            ]
+                        ),
+
+
+                        text(
+                            'setor',
+                            'Setor'
+                        ),
+
+
+                        text(
+                            'nomeCliente',
+                            'Cliente',
+                            'Ex.: João da Silva'
+                        ),
+
+
+                        text(
+                            'numeroOS',
+                            'Nº da OS:',
+                            'Ex.: 123456'
+                        ),
+
+
+                        area(
+                            'breveRelato',
+                            'Breve relato:',
+                            'Descreva os detalhes da situação/acompanhamento...'
+                        )
+
+                    ]
+                )
+
+            ],
+
+
+            generate(v) {
+
+                return [
+
+                    `Motivo do acionamento: ${valOrNA(v.motivo)}`,
+
+                    `CIDADE: ${valOrNA(v.cidade)}`,
+
+                    `Origem: ${valOrNA(v.origem)}`,
+
+                    `Criticidade: ${valOrNA(v.criticidade)}`,
+
+                    `Setor: ${
+                    clean(v.setor) ||
+                    'CISL - Atendimento de Field Service'
+                    }`,
+
+                    `Cliente: ${valOrNA(v.nomeCliente)}`,
+
+                    `Nº da OS: ${valOrNA(v.numeroOS)}`,
+
+                    `Breve relato: ${valOrNA(v.breveRelato)}`
+
+                ].join('\n');
             }
         },
         // ========================================================
@@ -993,8 +1290,8 @@
                     const p = v.dataServico.split('-');
                     data =
                         p.length === 3
-                            ? `${p[2]}/${p[1]}/${p[0]}`
-                            : v.dataServico;
+                        ? `${p[2]}/${p[1]}/${p[0]}`
+                    : v.dataServico;
                 }
                 let r = 'Não informado.';
                 if (v.restricao ===
@@ -1006,9 +1303,9 @@
                     'Sim') {
                     r =
                         `Sim${clean(v.restricaoTexto)
-                            ? ' – ' +
-                                clean(v.restricaoTexto)
-                            : ''}`;
+                        ? ' – ' +
+                        clean(v.restricaoTexto)
+                    : ''}`;
                 }
                 return [
                     `Data da execução do serviço: ${data}`,
@@ -1038,12 +1335,12 @@
     };
     function renderField(f) {
         const label = f.label
-            ? `<div class="szc-label">${esc(f.label)}</div>`
-            : '';
+        ? `<div class="szc-label">${esc(f.label)}</div>`
+        : '';
         if (f.type ===
             'text' ||
             f.type ===
-                'date') {
+            'date') {
             return `
                 <div class="szc-field">
                     ${label}
@@ -1095,14 +1392,14 @@
         if (f.type ===
             'checkbox') {
             const child = f.children?.length
-                ? `
+            ? `
                         <div class="szc-subbox">
                             ${f.children
-                    .map(renderField)
-                    .join('')}
+            .map(renderField)
+            .join('')}
                         </div>
                     `
-                : '';
+            : '';
             return `
                 <div
                     class="szc-check-item"
@@ -1131,14 +1428,14 @@
                         ${f.options
                 .map(o => {
                 const child = o.children?.length
-                    ? `
+                ? `
                                                     <div class="szc-subbox">
                                                         ${o.children
-                        .map(renderField)
-                        .join('')}
+                .map(renderField)
+                .join('')}
                                                     </div>
                                                 `
-                    : '';
+                : '';
                 return `
                                             <div
                                                 class="szc-check-item"
@@ -1174,18 +1471,18 @@
             .map(c => `
                     <div
                         class="szc-card${c.required
-            ? ' szc-required'
-            : ''}"
+                 ? ' szc-required'
+                 : ''}"
                     >
                         <h3>
                             ${esc(c.title)}
                             ${c.required
-            ? '<span class="szc-badge">obrigatório</span>'
-            : ''}
+                 ? '<span class="szc-badge">obrigatório</span>'
+                 : ''}
                         </h3>
                         ${c.fields
-            .map(renderField)
-            .join('')}
+                 .map(renderField)
+                 .join('')}
                     </div>
                 `)
             .join('');
@@ -1615,7 +1912,7 @@
     const pos = GM_getValue(POS_KEY, {
         top: 80,
         left: Math.max(20, innerWidth -
-            440)
+                       440)
     });
     const size = GM_getValue(SIZE_KEY, {
         width: 400,
@@ -1623,12 +1920,12 @@
     });
     popup.style.cssText +=
         `;top:${pos.top}px;` +
-            `left:${pos.left}px;` +
-            `width:${size.width}px;` +
-            `height:${size.height}px;` +
-            `display:${GM_getValue(VIS_KEY, false)
-                ? 'flex'
-                : 'none'}`;
+        `left:${pos.left}px;` +
+        `width:${size.width}px;` +
+        `height:${size.height}px;` +
+        `display:${GM_getValue(VIS_KEY, false)
+        ? 'flex'
+    : 'none'}`;
     new ResizeObserver(() => {
         const width = popup.offsetWidth;
         const height = popup.offsetHeight;
@@ -1654,10 +1951,10 @@
         const r = popup.getBoundingClientRect();
         dx =
             e.clientX -
-                r.left;
+            r.left;
         dy =
             e.clientY -
-                r.top;
+            r.top;
         e.preventDefault();
     });
     document.addEventListener('mousemove', e => {
@@ -1665,10 +1962,10 @@
             return;
         popup.style.left =
             Math.max(0, Math.min(innerWidth - 80, e.clientX - dx)) +
-                'px';
+            'px';
         popup.style.top =
             Math.max(0, Math.min(innerHeight - 40, e.clientY - dy)) +
-                'px';
+            'px';
     });
     document.addEventListener('mouseup', () => {
         if (!dragging)
@@ -1686,15 +1983,15 @@
     const setVisible = v => {
         popup.style.display =
             v
-                ? 'flex'
-                : 'none';
+            ? 'flex'
+        : 'none';
         GM_setValue(VIS_KEY, v);
     };
     toggle.onclick =
         () => {
-            setVisible(popup.style.display ===
-                'none');
-        };
+        setVisible(popup.style.display ===
+                   'none');
+    };
     popup.querySelector('#szchat-hide').onclick =
         () => setVisible(false);
     // ============================================================
@@ -1710,7 +2007,7 @@
                     el.checked;
             }
             else if (el.type ===
-                'radio') {
+                     'radio') {
                 if (el.checked) {
                     v[id] =
                         el.value;
@@ -1741,10 +2038,10 @@
                     !!v[id];
             }
             else if (el.type ===
-                'radio') {
+                     'radio') {
                 el.checked =
                     el.value ===
-                        v[id];
+                    v[id];
             }
             else {
                 el.value =
@@ -1763,10 +2060,10 @@
         form.querySelectorAll('.szc-check-item[data-cond-id]').forEach(item => {
             const id = item.dataset.condId;
             const active = item.dataset.condType ===
-                'checkbox'
-                ? !!v[id]
-                : v[id] ===
-                    item.dataset.condValue;
+                  'checkbox'
+            ? !!v[id]
+            : v[id] ===
+                  item.dataset.condValue;
             item.classList.toggle('szc-active', active);
         });
         /*
@@ -1804,12 +2101,12 @@
         clearTimeout(saveTimer);
         saveTimer =
             setTimeout(() => {
-                if (status.textContent ===
-                    'Salvo ✓') {
-                    status.textContent =
-                        '';
-                }
-            }, 1000);
+            if (status.textContent ===
+                'Salvo ✓') {
+                status.textContent =
+                    '';
+            }
+        }, 1000);
     }
     function debounceSave() {
         if (suppressSave) {
@@ -1850,12 +2147,19 @@
             'flex';
         const state = loadState(currentTicketKey);
         const saved = state.data?.[id] ||
-            {};
-        setValues(saved.fields ||
-            {});
+              {};
+        setValues(
+            saved.fields ||
+            {}
+        );
+
+        // Auto-preenche dados do Zendesk
+        // sem sobrescrever dados já salvos.
+        prefillFieldAgendamento();
+
         output.value =
             saved.output ||
-                '';
+            '';
         state.script =
             id;
         saveState(currentTicketKey, state);
@@ -1864,12 +2168,12 @@
     }
     scriptSelect.onchange =
         () => {
-            if (currentScriptId) {
-                clearTimeout(saveTimer);
-                saveCurrent();
-            }
-            loadScript(scriptSelect.value);
-        };
+        if (currentScriptId) {
+            clearTimeout(saveTimer);
+            saveCurrent();
+        }
+        loadScript(scriptSelect.value);
+    };
     // ============================================================
     // VALIDAÇÃO
     // ============================================================
@@ -1883,14 +2187,14 @@
                 const sub = el.closest('.szc-subbox');
                 if (sub &&
                     !sub.parentElement
-                        .classList
-                        .contains('szc-active')) {
+                    .classList
+                    .contains('szc-active')) {
                     return;
                 }
                 if (el.type ===
                     'checkbox' ||
                     el.type ===
-                        'radio') {
+                    'radio') {
                     if (el.checked) {
                         ok =
                             true;
@@ -1904,11 +2208,51 @@
             if (!ok) {
                 c.classList.add('szc-error');
                 errors.push(clean(c.querySelector('h3')
-                    ?.childNodes[0]
-                    ?.textContent) ||
-                    'Campo obrigatório');
+                                  ?.childNodes[0]
+                                  ?.textContent) ||
+                            'Campo obrigatório');
             }
         });
+        // FIELD - AGENDAMENTO SUPORTE
+        // Criticidade é obrigatória especificamente.
+
+        if (
+            currentScriptId ===
+            'field_agendamento_suporte'
+        ) {
+
+            const criticidade =
+                  form.querySelector(
+                      '[data-id="criticidade"]:checked'
+                  );
+
+            if (!criticidade) {
+
+                const criticidadeField =
+                      form.querySelector(
+                          '[data-id="criticidade"]'
+                      );
+
+                const criticidadeCard =
+                      criticidadeField
+                ?.closest(
+                    '.szc-card'
+                );
+
+                if (criticidadeCard) {
+
+                    criticidadeCard
+                        .classList
+                        .add(
+                        'szc-error'
+                    );
+                }
+
+                errors.push(
+                    'Criticidade'
+                );
+            }
+        }
         if (!errors.length) {
             return true;
         }
@@ -1917,7 +2261,7 @@
             'szchat-error';
         b.textContent =
             '⚠️ Preencha: ' +
-                errors.join(' • ');
+            errors.join(' • ');
         form.prepend(b);
         form.querySelector('.szc-error')?.scrollIntoView({
             behavior: 'smooth',
@@ -1930,54 +2274,54 @@
     // ============================================================
     popup.querySelector('#szchat-generate').onclick =
         () => {
-            if (!currentScriptId ||
-                !validate()) {
-                return;
-            }
-            try {
-                output.value =
-                    SCRIPTS[currentScriptId].generate(values());
-                saveCurrent();
-                status.textContent =
-                    'Gerado ✓';
-                setTimeout(() => {
-                    if (status.textContent ===
-                        'Gerado ✓') {
-                        status.textContent =
-                            '';
-                    }
-                }, 1200);
-            }
-            catch (e) {
-                console.error(e);
-                status.textContent =
-                    'Erro ao gerar';
-            }
-        };
+        if (!currentScriptId ||
+            !validate()) {
+            return;
+        }
+        try {
+            output.value =
+                SCRIPTS[currentScriptId].generate(values());
+            saveCurrent();
+            status.textContent =
+                'Gerado ✓';
+            setTimeout(() => {
+                if (status.textContent ===
+                    'Gerado ✓') {
+                    status.textContent =
+                        '';
+                }
+            }, 1200);
+        }
+        catch (e) {
+            console.error(e);
+            status.textContent =
+                'Erro ao gerar';
+        }
+    };
     // ============================================================
     // COPIAR
     // ============================================================
     popup.querySelector('#szchat-copy').onclick =
         async () => {
-            if (!clean(output.value)) {
-                status.textContent =
-                    'Nada para copiar';
-                return;
-            }
-            try {
-                await navigator
-                    .clipboard
-                    .writeText(output.value);
-                status.textContent =
-                    'Copiado ✓';
-            }
-            catch {
-                output.select();
-                document.execCommand('copy');
-                status.textContent =
-                    'Copiado ✓';
-            }
-        };
+        if (!clean(output.value)) {
+            status.textContent =
+                'Nada para copiar';
+            return;
+        }
+        try {
+            await navigator
+                .clipboard
+                .writeText(output.value);
+            status.textContent =
+                'Copiado ✓';
+        }
+        catch {
+            output.select();
+            document.execCommand('copy');
+            status.textContent =
+                'Copiado ✓';
+        }
+    };
     // ============================================================
     // LABELS DO TICKET
     // ============================================================
@@ -1988,26 +2332,26 @@
             const n = getOpenTicketCount();
             context.textContent =
                 n === null
-                    ? ''
-                    : `Meus tickets abertos: ${n}`;
+                ? ''
+            : `Meus tickets abertos: ${n}`;
             return;
         }
         subtitle.textContent =
             '— ' +
-                meta.name;
+            meta.name;
         context.textContent =
             `#${meta.ticketId}` +
-                (meta.phone
-                    ? ' • ' +
-                        meta.phone
-                    : '');
+            (meta.phone
+             ? ' • ' +
+             meta.phone
+             : '');
     }
     // ============================================================
     // TROCAR TICKET
     // ============================================================
     function switchTicket(meta) {
         const key = meta?.key ||
-            null;
+              null;
         /*
             Continua no mesmo ticket.
             Pode acontecer do telefone aparecer depois
@@ -2134,20 +2478,20 @@
     */
     window.__zendeskAtendimentoDebug =
         () => {
-            const tab = getSelectedTab();
-            const info = {
-                selectedTab: tab
-                    ? {
-                        ticketId: tab.getAttribute('data-entity-id'),
-                        selected: tab.getAttribute('data-entity-is-selected'),
-                        title: clean(tab.querySelector('[data-test-id="header-tab-title"]')?.textContent)
-                    }
-                    : null,
-                context: getTicketContext(),
-                openCount: getOpenTicketCount(),
-                url: location.href
-            };
-            console.log('Zendesk Atendimento Debug:', info);
-            return info;
+        const tab = getSelectedTab();
+        const info = {
+            selectedTab: tab
+            ? {
+                ticketId: tab.getAttribute('data-entity-id'),
+                selected: tab.getAttribute('data-entity-is-selected'),
+                title: clean(tab.querySelector('[data-test-id="header-tab-title"]')?.textContent)
+            }
+            : null,
+            context: getTicketContext(),
+            openCount: getOpenTicketCount(),
+            url: location.href
         };
+        console.log('Zendesk Atendimento Debug:', info);
+        return info;
+    };
 })();
