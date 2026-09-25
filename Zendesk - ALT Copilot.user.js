@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - ALT Copilot
 // @namespace    alt.copilot
-// @version      1.5.0
+// @version      1.6
 // @description  Sistema de presets/mensagens prontas para atendimento ALT
 // @author       João Aguiar
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
@@ -1144,11 +1144,11 @@ Ela deve ter no mínimo 8 caracteres e incluir:
         #alt-copilot-fab svg { width: 24px; height: 24px; }
 
         #alt-copilot-panel {
-          right: 20px; bottom: 80px;
+          right: 20px; bottom: 130px;
           position: fixed;
           width: 480px;
           height: 450px;
-          background: #ffffff;
+          background: rgba(255, 255, 255, 0.6);
           border: 1px solid #e3e8ed;
           border-radius: 12px;
           box-shadow: 0 12px 40px rgba(0,0,0,.18);
@@ -1166,7 +1166,7 @@ Ela deve ter no mínimo 8 caracteres e incluir:
           align-items: center;
           justify-content: space-between;
           padding: 10px 14px;
-          background: #0c3455;
+          background: rgba(12, 52, 85, 0.6);
           color: #fff;
           user-select: none;
         }
@@ -1200,23 +1200,27 @@ Ela deve ter no mínimo 8 caracteres e incluir:
         .altc-icon-btn:hover { opacity: 1; background: rgba(255,255,255,.12); }
 
         .altc-context {
-          padding: 8px 14px;
-          background: #f7f9fb;
-          border-bottom: 1px solid #e3e8ed;
-          font-size: 11px;
-          color: #607080;
-        }
+    padding: 8px 14px;
+
+    background: rgba(247, 249, 251, 0.6);
+
+    border-bottom: 1px solid rgba(227, 232, 237, 0.7);
+    font-size: 11px;
+    color: #607080;
+}
         .altc-context strong { color: #2c3e50; font-weight: 600; }
 
         .altc-tabs {
-          display: flex;
-          gap: 2px;
-          padding: 6px 6px 0 6px;
-          border-bottom: 1px solid #e3e8ed;
-          background: #fafbfc;
-          overflow-x: auto;
-          flex-shrink: 0;
-        }
+    display: flex;
+    gap: 2px;
+    padding: 6px 6px 0 6px;
+    border-bottom: 1px solid rgba(227, 232, 237, 0.7);
+
+    background: rgba(250, 251, 252, 0.72);
+
+    overflow-x: auto;
+    flex-shrink: 0;
+}
         .altc-tab {
           padding: 6px 10px;
           font-size: 11px;
@@ -1534,9 +1538,9 @@ Ela deve ter no mínimo 8 caracteres e incluir:
             const obs = new MutationObserver((records) => {
                 const relevant = records.some((record) => {
                     const target =
-                        record.target?.nodeType === Node.ELEMENT_NODE
-                            ? record.target
-                            : record.target?.parentElement;
+                          record.target?.nodeType === Node.ELEMENT_NODE
+                    ? record.target
+                    : record.target?.parentElement;
 
                     return !target?.closest?.('#alt-copilot-panel, #alt-copilot-fab');
                 });
@@ -1682,23 +1686,23 @@ Ela deve ter no mínimo 8 caracteres e incluir:
                 contact: ChatReader.getCurrentContact(),
 
                 selectedTab: tab
-                    ? {
-                        ticketId: tab.getAttribute('data-entity-id'),
-                        selected: tab.getAttribute('data-entity-is-selected'),
-                        title:
-                            tab.querySelector(
-                                CONFIG.SELECTORS.selectedTicketTitle
-                            )?.textContent?.trim() || '',
-                    }
-                    : null,
+                ? {
+                    ticketId: tab.getAttribute('data-entity-id'),
+                    selected: tab.getAttribute('data-entity-is-selected'),
+                    title:
+                    tab.querySelector(
+                        CONFIG.SELECTORS.selectedTicketTitle
+                    )?.textContent?.trim() || '',
+                }
+                : null,
 
                 input: input
-                    ? {
-                        testId: input.getAttribute('data-test-id'),
-                        ariaLabel: input.getAttribute('aria-label'),
-                        contenteditable: input.getAttribute('contenteditable'),
-                    }
-                    : null,
+                ? {
+                    testId: input.getAttribute('data-test-id'),
+                    ariaLabel: input.getAttribute('aria-label'),
+                    contenteditable: input.getAttribute('contenteditable'),
+                }
+                : null,
 
                 messages: candidates.map((x) => ({
                     role: x.role,
