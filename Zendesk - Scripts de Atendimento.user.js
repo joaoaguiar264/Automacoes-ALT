@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - Scripts de Atendimento
 // @namespace    http://tampermonkey.net/
-// @version      2.6
+// @version      2.7
 // @description  Scripts de atendimento por ticket no Zendesk
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @grant        GM_setValue
@@ -1494,8 +1494,8 @@
     style.textContent = `
         #szchat-popup {
             position: fixed;
-            z-index: 999999;
-            background: #ffffff;
+            z-index: 99997;
+            background: rgba(255, 255, 255, 0.6);
             border: 1px solid #c7c7c7;
             border-radius: 10px;
             box-shadow:
@@ -1515,7 +1515,7 @@
             resize: both;
         }
         #szchat-header {
-            background: #1181b7;
+            background: rgba(17, 129, 183, 0.6);
             color: #ffffff;
             padding: 8px 12px;
             cursor: move;
@@ -1557,7 +1557,7 @@
         }
         #szchat-toolbar {
             padding: 8px 12px;
-            background: #f6f7fb;
+            background: rgba(246, 247, 251, 0.6);
             border-bottom:
                 1px solid #e7eaf0;
             display: flex;
@@ -1578,12 +1578,12 @@
             flex: 1;
             overflow-y: auto;
             padding: 10px 12px;
-            background: #fafbfd;
+                background: rgba(250, 251, 253, 0.6);
             display: flex;
             flex-direction: column;
         }
         .szc-card {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.6);
             border:
                 1px solid #e7eaf0;
             border-radius: 10px;
@@ -1660,9 +1660,8 @@
             gap: 6px;
         }
         .szc-check-item {
-            border:
-                1px solid #e5e7eb;
-            background: #fbfcff;
+            border: 1px solid rgba(229, 231, 235, 0.6);
+            background: rgba(251, 252, 255, 0.6);
             border-radius: 8px;
             overflow: hidden;
         }
@@ -1688,7 +1687,7 @@
                 10px 30px;
             border-top:
                 1px solid #e5e7eb;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.6);
         }
         .szc-check-item.szc-active
         > .szc-subbox {
@@ -1707,7 +1706,7 @@
             padding: 10px 12px;
             margin:
                 10px -12px -10px;
-            background: #f6f7fb;
+            background: rgba(246, 247, 251, 0.6);
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -1768,7 +1767,7 @@
         }
         #szchat-toggle {
             position: fixed;
-            z-index: 999998;
+            z-index: 999996;
             bottom: 60px;
             right: 10px;
             background: #1181b7;
