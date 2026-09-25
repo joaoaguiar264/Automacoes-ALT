@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zendesk - Painel Meus Tickets Ativos
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Mantém sempre visíveis os tickets da visualização "Meus tickets Abertos"
 // @match        https://brasiltecparsupport.zendesk.com/agent/*
 // @grant        none
@@ -37,6 +37,9 @@
 
     const STORAGE_COLLAPSED =
         'altOpenTicketsCollapsed';
+
+    const STORAGE_POSITION =
+          'altOpenTicketsPosition';
 
 
     // ============================================================
@@ -419,6 +422,12 @@
 
                 align-items: center;
 
+                cursor: move;
+
+                user-select: none;
+
+                touch-action: none;
+
                 gap: 8px;
 
                 min-height: 46px;
@@ -756,6 +765,279 @@
         );
     }
 
+    function enableDrag(panel) {
+        const header =
+              panel.querySelector('.alt-head');
+
+        if (!header) {
+            return;
+        }
+
+
+        // =============================================
+        // RESTAURA POSIÇÃO SALVA
+        // =============================================
+
+        try {
+
+            const saved =
+                  JSON.parse(
+                      localStorage.getItem(
+                          STORAGE_POSITION
+                      ) || 'null'
+                  );
+
+
+            if (
+                saved &&
+                Number.isFinite(saved.left) &&
+                Number.isFinite(saved.top)
+            ) {
+
+                panel.style.left =
+                    `${saved.left}px`;
+
+                panel.style.top =
+                    `${saved.top}px`;
+
+                panel.style.right =
+                    'auto';
+            }
+
+        } catch (error) {
+
+            console.warn(
+                '[Meus tickets ativos] Não foi possível restaurar posição.',
+                error
+            );
+        }
+
+
+        let dragging = false;
+
+        let startX = 0;
+        let startY = 0;
+
+        let initialLeft = 0;
+        let initialTop = 0;
+
+
+        // =============================================
+        // COMEÇA A ARRASTAR
+        // =============================================
+
+        header.addEventListener(
+            'pointerdown',
+            event => {
+
+                /*
+             * Não arrasta quando clicar
+             * nos botões ↻ e −
+             */
+                if (
+                    event.target.closest(
+                        'button'
+                    )
+                ) {
+                    return;
+                }
+
+
+                dragging = true;
+
+
+                const rect =
+                      panel.getBoundingClientRect();
+
+
+                startX =
+                    event.clientX;
+
+                startY =
+                    event.clientY;
+
+                initialLeft =
+                    rect.left;
+
+                initialTop =
+                    rect.top;
+
+
+                /*
+             * A partir daqui usamos
+             * left/top, e não right.
+             */
+                panel.style.left =
+                    `${rect.left}px`;
+
+                panel.style.top =
+                    `${rect.top}px`;
+
+                panel.style.right =
+                    'auto';
+
+
+                header.setPointerCapture(
+                    event.pointerId
+                );
+
+
+                document.body.style.userSelect =
+                    'none';
+            }
+        );
+
+
+        // =============================================
+        // MOVIMENTO
+        // =============================================
+
+        header.addEventListener(
+            'pointermove',
+            event => {
+
+                if (!dragging) {
+                    return;
+                }
+
+
+                const deltaX =
+                      event.clientX -
+                      startX;
+
+                const deltaY =
+                      event.clientY -
+                      startY;
+
+
+                let left =
+                    initialLeft +
+                    deltaX;
+
+                let top =
+                    initialTop +
+                    deltaY;
+
+
+                /*
+             * Impede o painel de sair
+             * completamente da tela.
+             */
+                const maxLeft =
+                      Math.max(
+                          0,
+                          window.innerWidth -
+                          panel.offsetWidth
+                      );
+
+
+                const maxTop =
+                      Math.max(
+                          0,
+                          window.innerHeight -
+                          46
+                      );
+
+
+                left =
+                    Math.min(
+                    Math.max(
+                        0,
+                        left
+                    ),
+                    maxLeft
+                );
+
+
+                top =
+                    Math.min(
+                    Math.max(
+                        0,
+                        top
+                    ),
+                    maxTop
+                );
+
+
+                panel.style.left =
+                    `${left}px`;
+
+                panel.style.top =
+                    `${top}px`;
+            }
+        );
+
+
+        // =============================================
+        // TERMINA
+        // =============================================
+
+        function stopDrag(event) {
+
+            if (!dragging) {
+                return;
+            }
+
+
+            dragging =
+                false;
+
+
+            document.body.style.userSelect =
+                '';
+
+
+            const rect =
+                  panel.getBoundingClientRect();
+
+
+            localStorage.setItem(
+                STORAGE_POSITION,
+
+                JSON.stringify({
+                    left:
+                    Math.round(
+                        rect.left
+                    ),
+
+                    top:
+                    Math.round(
+                        rect.top
+                    )
+                })
+            );
+
+
+            try {
+
+                if (
+                    event &&
+                    header.hasPointerCapture(
+                        event.pointerId
+                    )
+                ) {
+
+                    header.releasePointerCapture(
+                        event.pointerId
+                    );
+                }
+
+            } catch (_) {}
+        }
+
+
+        header.addEventListener(
+            'pointerup',
+            stopDrag
+        );
+
+
+        header.addEventListener(
+            'pointercancel',
+            stopDrag
+        );
+    }
+
 
     // ============================================================
     // CRIA PAINEL
@@ -863,6 +1145,7 @@
             panel
         );
 
+        enableDrag(panel);
 
         // Atualizar manualmente
         panel
